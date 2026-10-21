@@ -8,3 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY starter/ ./starter
 COPY plantilla-ejercicio2/ ./plantilla-ejercicio2
+COPY plantilla-eda/ ./plantilla-eda

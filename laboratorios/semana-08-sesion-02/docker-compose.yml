@@ -14,3 +14,11 @@ services:
     working_dir: /app/plantilla-ejercicio2
     volumes:
       - ./data-contenedor:/app/plantilla-ejercicio2/figuras
+
+  proyecto:
+    build: .
+    container_name: eda-proyecto
+    command: python3 explorar_proyecto.py
+    working_dir: /app/plantilla-eda
+    volumes:
+      - ./data-contenedor:/app/plantilla-eda/figuras
