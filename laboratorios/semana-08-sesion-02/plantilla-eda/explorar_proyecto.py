@@ -4,12 +4,22 @@ import sys
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from pathlib import Path
+from urllib.request import urlretrieve
+
 os.makedirs("figuras", exist_ok=True)
 
 # TODO: reemplaza por la ruta del archivo que tu pipeline de la Semana 7
 # deja listo para modelar (una tabla del warehouse exportada a CSV, o el
 # CSV limpio de tu etapa de calidad).
-datos = pd.read_csv('obt_sales.csv.gz')
+CARPETA = Path(__file__).parent
+ARCHIVO = CARPETA / "obt_sales.csv.gz"
+URL = "https://github.com/KeomaQuiroga/data-science-end-to-end/releases/download/v1.0-datos/obt_sales.csv.gz"
+
+if not ARCHIVO.exists():
+    print("Descargando datos (~490 MB), solo la primera vez...")
+    urlretrieve(URL, ARCHIVO)
+datos = pd.read_csv(ARCHIVO)
 
 # TODO: reemplaza por el nombre de la columna que tu modelo va a predecir.
 OBJETIVO = "units"
