@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Python
+=======
+# Python (a partir de la Semana 3)
+>>>>>>> 0bca416 (add: labs)
 __pycache__/
 *.pyc
 .venv/
@@ -8,6 +12,11 @@ venv/
 # Datos y modelos locales (nunca se suben, ver PSets para dónde documentar su origen)
 data/raw/
 data/processed/
+<<<<<<< HEAD
+=======
+*.csv
+*.parquet
+>>>>>>> 0bca416 (add: labs)
 *.pkl
 
 # Editor / OS
@@ -17,3 +26,5 @@ data/processed/
 
 # Logs
 *.log
+laboratorios/semana-08-sesion-02/plantilla-eda/obt_sales.csv.gz
+laboratorios/semana-08-sesion-02/plantilla-eda/obt_sales.csv.gz

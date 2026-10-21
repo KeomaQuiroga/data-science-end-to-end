@@ -9,7 +9,7 @@ os.makedirs("figuras", exist_ok=True)
 # TODO: reemplaza por la ruta del archivo que tu pipeline de la Semana 7
 # deja listo para modelar (una tabla del warehouse exportada a CSV, o el
 # CSV limpio de tu etapa de calidad).
-datos = pd.read_csv('obt_sales.csv')
+datos = pd.read_csv('obt_sales.csv.gz')
 
 # TODO: reemplaza por el nombre de la columna que tu modelo va a predecir.
 OBJETIVO = "units"
