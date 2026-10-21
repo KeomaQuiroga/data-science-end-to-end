@@ -6,6 +6,5 @@ COPY starter/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY starter/ .
-
-CMD ["python3", "EDA.py"]
+COPY starter/ ./starter
+COPY plantilla-ejercicio2/ ./plantilla-ejercicio2

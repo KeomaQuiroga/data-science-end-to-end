@@ -20,7 +20,7 @@ print(f"Filas antes: {len(viajes)} \t Filas ahora:{len(limpios)}")
 plt.figure()
 plt.title("Distancia(km) vs. Tarifa")
 plt.scatter(limpios["distancia_km"], limpios["tarifa"])
-plt.show()
+plt.savefig("figuras/scatter_limpio---distancia-tarifa.png")
 plt.close()
 
 # TODO 3: propina promedio y cantidad de viajes con propina 0, por metodo de pago (groupby + agg).

@@ -21,21 +21,21 @@ plt.hist(data["tarifa"], bins=50)
 plt.title("Distribucion de la tarifa")
 plt.xlabel("USD")
 plt.ylabel("Numero de viajes")
-plt.savefig("./starter/figuras/histograma_tarifa.png")      # guardar figura
+plt.savefig("figuras/histograma_tarifa.png")      # guardar figura
 plt.close()
 
 # boxplot
 plt.figure()
 plt.boxplot(data["tarifa"])
 plt.title("Distribucion de la tarifa")
-plt.savefig("./starter/figuras/boxplot_tarifa.png")      # guardar figura
+plt.savefig("figuras/boxplot_tarifa.png")      # guardar figura
 plt.close()
 
 # scatterplot
 plt.figure()
 plt.scatter(data["tarifa"], data["distancia_km"])
 plt.title("Dispersion tarifa vs. distancia (km)")
-plt.savefig("./starter/figuras/scatter_outliers-tarifa-distancia.png")      # guardar figura
+plt.savefig("figuras/scatter_outliers-tarifa-distancia.png")      # guardar figura
 plt.close()
 
 print(data.corr(numeric_only=True))      # matriz de correlacion, solo variables numericas
@@ -61,7 +61,7 @@ print(sin_atipicos)
 plt.figure()
 plt.scatter(sin_atipicos["tarifa"], sin_atipicos["distancia_km"])
 plt.title("Dispersion sin outliers tarifa vs. distancia (km)")
-plt.savefig("./starter/figuras/scatter_tarifa-distancia.png")      # guardar figura
+plt.savefig("figuras/scatter_tarifa-distancia.png")      # guardar figura
 plt.close()
 
 # TODO: Filtrar para solo variables numericas y calcular la matriz de correlacion

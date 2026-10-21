@@ -1,6 +1,16 @@
 services:
-  python-app:
+  eda:
     build: .
-    container_name: semana-08
+    container_name: eda-taxis
+    command: python3 EDA.py
+    working_dir: /app/starter
     volumes:
       - ./data-contenedor:/app/starter/figuras
+
+  explorar-relaciones:
+    build: .
+    container_name: relaciones-taxis
+    command: python3 explorar_relaciones.py
+    working_dir: /app/plantilla-ejercicio2
+    volumes:
+      - ./data-contenedor:/app/plantilla-ejercicio2/figuras
