@@ -8,7 +8,7 @@
 
 ## Requisitos antes de esta sesión
 
-pandas ya lo tienes desde la Semana 4. Instala matplotlib:
+Pandas ya lo tienes desde la Semana 4. Instala matplotlib:
 
 ```
 pip install matplotlib
@@ -24,67 +24,60 @@ Los scripts de hoy guardan cada gráfico como imagen en una carpeta `figuras/`. 
 
 ## Antes de empezar
 
-A partir de la lectura previa:
+**A partir de la lectura previa:**
 
 **Según el artículo, ¿qué preguntas responde la exploración de datos antes de entrenar cualquier modelo?**
-
-_(tu respuesta)_
+Responde a 3 preguntas fundamentales:
+- ¿Qué tiene cada columna?
+- ¿Qué valores no deberían estar ahí?
+- ¿Qué relaciones existen?
 
 **El artículo distingue la exploración de una sola variable de la exploración de la relación entre dos. ¿Qué herramienta propone para cada una?**
-
-_(tu respuesta)_
+- **Univariable:** Analiza las características individuales de cada característica, como valores atípicos, estadística descriptiva, curtosis y cuartiles.
+- **Multivariable:** Analizar las interacciones entre características y sus correlaciones, ver que tanto una característica tiene influencia sobre otra.
 
 ## Pregunta de apertura
 
-Entrenas un modelo que predice la tarifa de un viaje en taxi. Sin que lo sepas, 15 de los 3000 viajes tienen una tarifa de 999.99 por un error de captura. ¿Qué le pasa al modelo? ¿Lo notarías mirando solo su resultado final?
-
-_(tu respuesta)_
+**Entrenas un modelo que predice la tarifa de un viaje en taxi. Sin que lo sepas, 15 de los 3000 viajes tienen una tarifa de 999.99 por un error de captura. ¿Qué le pasa al modelo? ¿Lo notarías mirando solo su resultado final?**
+Esa tarifa es un gran sesgo para el modelo, por lo que empezaría a predecir tarifas muy infladas. A simple vista no se notaría, pues son 15 datos ente 3000 (el 0.5%). Para notar habría que tener en cuenta herramientas de estadística descriptiva (como la media o el rango), o en su defecto visualizar outliers.
 
 ## Ejercicio 1: resumen, distribución y atípicos
 
-Enunciado: [`starter/viajes_taxi.csv`](./starter/viajes_taxi.csv) tiene 3000 viajes en taxi de Nueva York: fecha y hora de inicio, zona de origen y de destino, distancia, duración, pasajeros, método de pago, tarifa y propina. Primera mirada: qué contiene, cómo se distribuye la tarifa y qué valores están fuera de lo esperable.
+**Enunciado:** [`starter/viajes_taxi.csv`](./starter/viajes_taxi.csv) tiene 3000 viajes en taxi de Nueva York: fecha y hora de inicio, zona de origen y de destino, distancia, duración, pasajeros, método de pago, tarifa y propina. Primera mirada: qué contiene, cómo se distribuye la tarifa y qué valores están fuera de lo esperable.
 
 **Respuesta 1, antes de ver la solución:** en `describe()`, ¿qué dos valores de la tabla te harían sospechar de un error sin necesidad de graficar nada?
-
-_(tu respuesta)_
+Valores anormales en tarifa y propina. Para tarifa pueden ser valores muy grandes en distancias cortas o viceversa, y en propinas ver una más alta que la propia tarifa.
 
 **Respuesta 2:** la regla del IQR marca más de 300 viajes con tarifa atípica. ¿Esperas que todos sean errores? ¿Cómo lo averiguarías?
-
-_(tu respuesta)_
+No todos los viajes son erróneos, se pueden deber a casos especiales, como transitar en hora pico o destinos muy largos. Obtener la correlación entre tarifa con duración y tarifa con distancia, podremos ver si las variables se relacionan o no con la duración del viaje y la distancia recorrida.
 
 **La formulación completa, tal como la resuelvo yo:**
-
 _(anota aquí el script y lo que encontró, mientras se revisa en clase)_
 
 ## Durante el ConcepTest
 
 **Tu voto, antes de discutir en pareja** (A, B, C o D):
-
 _(tu voto)_
 
 **Tu razonamiento:**
-
 _(tu respuesta)_
 
 **Después de discutir en pareja, ¿cambiaste de voto? ¿Por qué?**
-
 _(tu respuesta)_
 
 ## Ejercicio 2: relaciones entre variables
 
-Solo o en pareja. Parte de la plantilla [`plantilla-ejercicio2/explorar_relaciones.py`](./plantilla-ejercicio2/explorar_relaciones.py) y córrela desde su carpeta (`cd plantilla-ejercicio2`, `python3 explorar_relaciones.py`): lee el mismo `starter/viajes_taxi.csv`. Quita solo los errores que el Ejercicio 1 ya confirmó y completa los 5 `TODO`: dispersión de distancia contra tarifa, propina por método de pago, correlaciones con la tarifa, y pasajeros vacíos o en 0.
+Solo o en pareja. Parte de la plantilla [`plantilla-ejercicio2/explorar_relaciones.py`](./plantilla-ejercicio2/explorar_relaciones.py) y córrela desde su carpeta (`cd plantilla-ejercicio2`, `python3 explorar_relaciones.py`): lee el mismo `starter/viajes_taxi.csv`. Quita solo los errores que el Ejercicio 1 ya confirmó y completa los 5 
+**`TODO`:** dispersión de distancia contra tarifa, propina por método de pago, correlaciones con la tarifa, y pasajeros vacíos o en 0.
 
 **Hallazgo 1: qué muestra el gráfico de distancia contra tarifa, además de la tendencia general.**
-
-_(tu hallazgo, con el número que lo confirma)_
+Son variables que están altamente relacionadas, pues si aumenta la distancia aumenta la tarifa. Pero tembién se observa un límite de 70 en la tarifa y bijes de 0km donde se pagaron precios exagerados.
 
 **Hallazgo 2: qué pasa con la propina según el método de pago, y si crees que describe a los pasajeros o al sistema que registra los datos.**
-
-_(tu hallazgo, con el número que lo confirma)_
+No se deja propina cuando se paga con efectivo, pero si con tarjeta; son 888 viajes donde no se pago propina cuando fue en efectivo. Aunque el método de pago pudo ser tarjeta, pudieron haber dejado propina en efectivo, por lo tanto no se registra.
 
 **Hallazgo 3: la duración tiene una correlación con la tarifa tan alta como la distancia. Si el modelo tiene que estimar la tarifa en el momento en que alguien pide el taxi, ¿puede usar la duración?**
-
-_(tu respuesta)_
+No; la duración es variable y depende de distintos factores (clima, tráfico, estado del vehículo), la distancia es un número fijo, no importan los agentes externos siempre será la misma (a menos que suceda algún cierre víal durante el trayecto).
 
 ## Ejercicio 3: explora el dataset de tu proyecto
 

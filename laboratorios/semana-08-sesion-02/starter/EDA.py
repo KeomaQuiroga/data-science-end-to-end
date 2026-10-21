@@ -38,7 +38,7 @@ plt.title("Dispersion tarifa vs. distancia (km)")
 plt.savefig("./starter/figuras/scatter_outliers-tarifa-distancia.png")      # guardar figura
 plt.close()
 
-# print(data.corr())      # matriz de correlacion, solo variables numericas
+print(data.corr(numeric_only=True))      # matriz de correlacion, solo variables numericas
 
 
 # Extraer valores atipicos
@@ -65,4 +65,4 @@ plt.savefig("./starter/figuras/scatter_tarifa-distancia.png")      # guardar fig
 plt.close()
 
 # TODO: Filtrar para solo variables numericas y calcular la matriz de correlacion
-# print(sin_atipicos.corr())      # matriz de correlacion
+print(sin_atipicos.corr(numeric_only=True))      # matriz de correlacion
