@@ -21,30 +21,25 @@ Ten a mano tus 3 hallazgos de la exploración de la Semana 8, Sesión 2: las fea
 A partir de la lectura previa:
 
 **Según el artículo, ¿qué diferencia a una feature que tiene sentido de negocio de una que solo mejora una métrica?**
-
-_(tu respuesta)_
+Las que mejoran el negocio explican el comportamiento real del negocio que lo entiende todo el mundo. Por otro lado, las que mejoran una métrica son como una caja negra para personas sin conocimientos técnicos, no lo entienden los stakeholders y su justifiación suele ser más complicada.
 
 **Elige uno de los ejemplos del artículo: ¿qué conocimiento del negocio traduce a una columna, y cómo?**
-
-_(tu respuesta)_
+Un conteo bruto no sirve si no se sabe si el cliente hizo 5 o 500 compras, debemos dividir el número de transacciones sobre transacciones totales para saber la fidelidad del cliente.
 
 ## Pregunta de apertura
 
-La exploración encontró dos patrones que no existen como columnas: la tarifa fija entre JFK y Manhattan, y viajes que cuestan más por kilómetro a ciertas horas. El modelo solo ve columnas. ¿Cómo le das esa información?
+**La exploración encontró dos patrones que no existen como columnas: la tarifa fija entre JFK y Manhattan, y viajes que cuestan más por kilómetro a ciertas horas. El modelo solo ve columnas. ¿Cómo le das esa información?**
+Para la tarifa entre destinos se crean columnas adicionales, para ver desde donde partio y hacia donde va, dependiendo de la respuesta se completa con **True** o **False**. Se debe observar cuando los viajes cuestas más para así obtener la hora pico de los recorridos.
 
-_(tu respuesta)_
+## Ejercicio 1: featuresu de fecha y hora
 
-## Ejercicio 1: features de fecha y hora
-
-Enunciado: [`starter/viajes_taxi.csv`](./starter/viajes_taxi.csv), el mismo dataset de la sesión pasada, sin los errores confirmados. A partir de `fecha_hora_inicio`, construir hora, día de la semana, fin de semana, hora pico y la hora como ciclo, y comprobar si la hora pico aporta algo a la tarifa.
+**Enunciado:** [`starter/viajes_taxi.csv`](./starter/viajes_taxi.csv), el mismo dataset de la sesión pasada, sin los errores confirmados. A partir de `fecha_hora_inicio`, construir hora, día de la semana, fin de semana, hora pico y la hora como ciclo, y comprobar si la hora pico aporta algo a la tarifa.
 
 **Respuesta 1, antes de ver la solución:** si dejas la hora como un número del 0 al 23, ¿qué tan lejos queda la hora 23 de la hora 0 para un modelo que mide distancias entre números? ¿Y en el reloj?
-
-_(tu respuesta)_
+Para un modelo que mide distancias queda a 23 espacios, para un reloj queda solo una hora, pues la hora 0 es media noche.
 
 **Respuesta 2:** la duración del viaje no existe al pedir el taxi, pero la hora sí. ¿Qué parte de lo que la duración le diría al modelo puede traer `es_hora_pico`?
-
-_(tu respuesta)_
+La hora te da el momento de cuando fue tomado el taxi, pero nos podemos guiar por la duracion. Podemos ver trayectos iguales (parten de punto A y van hacia punto B) o trayectos que siempre van a un mismo destino, y de esos trayectos ver la duración con respecto a la hora. Si no hay tráfico el viaje dura menos, si hay congestión el viaje dura más.
 
 **La formulación completa, tal como la resuelvo yo:**
 
