@@ -64,16 +64,18 @@ _(tu respuesta)_
 Solo o en pareja. Parte de la plantilla [`plantilla-ejercicio2/features_de_zona.py`](./plantilla-ejercicio2/features_de_zona.py) y córrela desde su carpeta. Completa los 4 `TODO`.
 
 **Respuesta 1:** ¿cuántos viajes tienen `es_tarifa_fija` en 1, y qué tarifa mínima y máxima tienen? ¿Qué te dice eso sobre lo que un modelo lineal puede aprender con esta columna?
-
-_(tu respuesta)_
+- **Cantidad:** 300
+- **Max:** 77.81
+- **Min:** 1.6
 
 **Respuesta 2:** ¿cuántas columnas crea one-hot para la zona de origen, y cuántas la codificación ordinal? Si el modelo es una regresión lineal, ¿cuál de las dos usarías, y por qué la otra le da información falsa?
-
-_(tu respuesta)_
+One hot crea 8 columnas, y la codificación ordinal me dio solo una columna. Lo ideal es usar one hot, pues la variable ordinal crea una jerarquía, le da más importancia a unos origenes que a otros.
 
 **Respuesta 3:** ¿qué columnas del dataset no existen al pedir el taxi? ¿Qué pasaría con el modelo si las usaras para entrenar?
-
-_(tu respuesta)_
+- duracion_min
+- tarifa
+- propina
+El modelo empezaría a alucinar o crear datos sin sentido, pues se le está entregando información futura (data leakage). Por ejemplo podría emprezar a tratar de predecir duración (puede haber tráfico o no), tarifa (el taxímetro) o la propina (depende del comportamiento del conductor).
 
 ## Ejercicio 3: dos features para tu proyecto
 
