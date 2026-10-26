@@ -35,13 +35,13 @@ X_ent, X_prueba, y_ent, y_prueba = train_test_split(X, y, test_size=0.2, random_
 
 
 def preparacion():
-    return ColumnTransformer([
+    return ColumnTransformer([      # composicion de tuberias
         ("numericas", Pipeline([
             ("imputar", SimpleImputer(strategy="median")),
             ("escalar", StandardScaler()),
-        ]), NUMERICAS),
-        ("ya_listas", "passthrough", YA_LISTAS),
-        ("categoricas", Pipeline([
+        ]), NUMERICAS),     # a todas las columnas numericas
+        ("ya_listas", "passthrough", YA_LISTAS),        # ignoramos las listas
+        ("categoricas", Pipeline([      # variables categoricas
             ("imputar", SimpleImputer(strategy="most_frequent")),
             ("codificar", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
         ]), CATEGORICAS),
@@ -68,27 +68,30 @@ def evaluar(nombre, modelo):
     print(f"{nombre:28s} entrenamiento {mae_ent:7.4f}   prueba {mae_prueba:7.4f}")
     return pipeline
 
+def main():
+    # TODO 1: la linea base, un DummyRegressor que siempre predice la mediana
+    # de la tarifa de entrenamiento.
+    linea_base = DummyRegressor()
+    evaluar("linea base", linea_base)
 
-# TODO 1: la linea base, un DummyRegressor que siempre predice la mediana
-# de la tarifa de entrenamiento.
-linea_base = DummyRegressor()
-evaluar("linea base", linea_base)
+    # TODO 2: un arbol de decision (DecisionTreeRegressor) sin ningun limite,
+    # con random_state=42.
+    arbol = DecisionTreeRegressor(random_state=42)
+    evaluar("arbol sin limite", arbol)
 
-# TODO 2: un arbol de decision (DecisionTreeRegressor) sin ningun limite,
-# con random_state=42.
-arbol = DummyRegressor()
-evaluar("arbol sin limite", arbol)
+    # TODO 3: el mismo arbol, regularizado con max_depth=8.
+    arbol_limitado = DecisionTreeRegressor(random_state=42)
+    evaluar("arbol max_depth=8", arbol_limitado)
 
-# TODO 3: el mismo arbol, regularizado con max_depth=8.
-arbol_limitado = DummyRegressor()
-evaluar("arbol max_depth=8", arbol_limitado)
+    # TODO 4: un bosque aleatorio (RandomForestRegressor) de 200 arboles, con
+    # random_state=42.
+    bosque = RandomForestRegressor(n_estimators=200, random_state=42)
+    evaluar("bosque aleatorio", bosque)
 
-# TODO 4: un bosque aleatorio (RandomForestRegressor) de 200 arboles, con
-# random_state=42.
-bosque = DummyRegressor()
-evaluar("bosque aleatorio", bosque)
+    tabla = pd.DataFrame(resultados)
+    tabla.to_csv("resultados_ejercicio1.csv", index=False)
+    print()
+    print(tabla.to_string(index=False))
 
-tabla = pd.DataFrame(resultados)
-tabla.to_csv("resultados_ejercicio1.csv", index=False)
-print()
-print(tabla.to_string(index=False))
+if __name__ == "__main__":
+    main()
