@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 *.csv.gz filter=lfs diff=lfs merge=lfs -text
+=======
+# Los scripts de shell siempre con fin de linea LF, aunque se clone en Windows:
+# con CRLF, bash falla al crear el contenedor.
+*.sh text eol=lf
+>>>>>>> f9c474b3a2c2e5c9177d6177a998d779a6788b94

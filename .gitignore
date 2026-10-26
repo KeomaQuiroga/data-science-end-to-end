@@ -26,4 +26,26 @@ data/processed/
 
 # Logs
 *.log
+<<<<<<< HEAD
 **/obt_sales.csv.gz
+=======
+
+# Terraform (el estado guarda las credenciales en texto plano: nunca se sube)
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Warehouse local de DuckDB (se regenera al correr cada laboratorio)
+*.duckdb
+*.duckdb.wal
+
+# dbt y Spark (artefactos que se regeneran al correr)
+target/
+dbt_packages/
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Material reemplazado (no se sube)
+_to_delete/
+>>>>>>> f9c474b3a2c2e5c9177d6177a998d779a6788b94

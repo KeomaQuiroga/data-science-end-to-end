@@ -33,6 +33,7 @@ Para la tarifa entre destinos se crean columnas adicionales, para ver desde dond
 
 ## Ejercicio 1: featuresu de fecha y hora
 
+<<<<<<< HEAD
 **Enunciado:** [`starter/viajes_taxi.csv`](./starter/viajes_taxi.csv), el mismo dataset de la sesión pasada, sin los errores confirmados. A partir de `fecha_hora_inicio`, construir hora, día de la semana, fin de semana, hora pico y la hora como ciclo, y comprobar si la hora pico aporta algo a la tarifa.
 
 **Respuesta 1, antes de ver la solución:** si dejas la hora como un número del 0 al 23, ¿qué tan lejos queda la hora 23 de la hora 0 para un modelo que mide distancias entre números? ¿Y en el reloj?
@@ -40,10 +41,32 @@ Para un modelo que mide distancias queda a 23 espacios, para un reloj queda solo
 
 **Respuesta 2:** la duración del viaje no existe al pedir el taxi, pero la hora sí. ¿Qué parte de lo que la duración le diría al modelo puede traer `es_hora_pico`?
 La hora te da el momento de cuando fue tomado el taxi, pero nos podemos guiar por la duracion. Podemos ver trayectos iguales (parten de punto A y van hacia punto B) o trayectos que siempre van a un mismo destino, y de esos trayectos ver la duración con respecto a la hora. Si no hay tráfico el viaje dura menos, si hay congestión el viaje dura más.
+=======
+## Ejercicio 1: features de fecha y hora
 
-**La formulación completa, tal como la resuelvo yo:**
+Archivo: [`starter/ejercicio1_features_tiempo.py`](./starter/ejercicio1_features_tiempo.py), sobre [`starter/viajes_taxi.csv`](./starter/viajes_taxi.csv), el mismo dataset de la sesión pasada. El script ya quita los errores confirmados, convierte `fecha_hora_inicio` y compara la tarifa por kilómetro según la hora pico; faltan 4 `TODO`: hora, día de la semana, fin de semana, hora pico y la hora como ciclo. Córrelo una vez antes de tocar nada:
 
-_(anota aquí el script y lo que mostró, mientras se revisa en clase)_
+```
+cd laboratorios/semana-09-sesion-01/starter
+python3 ejercicio1_features_tiempo.py
+```
+
+**Respuesta 1 (TODO 4), antes de ver la solución:** si dejas la hora como un número del 0 al 23, ¿qué tan lejos queda la hora 23 de la hora 0 para un modelo que mide distancias entre números? ¿Y en el reloj?
+
+_(tu respuesta)_
+
+**Respuesta 2 (TODO 3):** sin el TODO 3, el Paso 4 muestra un solo grupo. Con la hora pico construida, ¿esperas que la tarifa por kilómetro sea más alta o más baja en hora pico? ¿Por qué, si la tarifa depende de la distancia y de la duración?
+
+_(tu respuesta)_
+>>>>>>> f9c474b3a2c2e5c9177d6177a998d779a6788b94
+
+**Respuesta 3:** la duración del viaje no existe al pedir el taxi, pero la hora sí. ¿Qué parte de lo que la duración le diría al modelo puede traer `es_hora_pico`?
+
+_(tu respuesta)_
+
+**Lo que confirmó la salida, TODO por TODO:**
+
+_(anota la tarifa por kilómetro en cada grupo y las dos distancias del Paso 5)_
 
 ## Durante el ConcepTest
 
@@ -61,7 +84,11 @@ _(tu respuesta)_
 
 ## Ejercicio 2: zona, codificación y disponibilidad
 
-Solo o en pareja. Parte de la plantilla [`plantilla-ejercicio2/features_de_zona.py`](./plantilla-ejercicio2/features_de_zona.py) y córrela desde su carpeta. Completa los 4 `TODO`.
+Solo o en pareja. Archivo: [`starter/ejercicio2_features_zona.py`](./starter/ejercicio2_features_zona.py), sobre el mismo `viajes_taxi.csv`. Completa los 4 `TODO`. Al final, el script imprime una comprobación por TODO: complétalos hasta que todas digan `OK`.
+
+```
+python3 ejercicio2_features_zona.py
+```
 
 **Respuesta 1:** ¿cuántos viajes tienen `es_tarifa_fija` en 1, y qué tarifa mínima y máxima tienen? ¿Qué te dice eso sobre lo que un modelo lineal puede aprender con esta columna?
 - **Cantidad:** 300
