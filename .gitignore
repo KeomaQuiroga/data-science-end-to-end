@@ -26,5 +26,4 @@ data/processed/
 
 # Logs
 *.log
-laboratorios/semana-08-sesion-02/plantilla-eda/obt_sales.csv.gz
-laboratorios/semana-08-sesion-02/plantilla-eda/obt_sales.csv.gz
+**/obt_sales.csv.gz

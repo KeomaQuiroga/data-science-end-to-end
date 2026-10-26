@@ -83,27 +83,39 @@ Usa el mismo archivo de la exploración de la Semana 8 y la plantilla [`plantill
 
 ### Paso 1: el momento de la predicción (5 minutos)
 
-Escribe qué predice tu modelo y en qué momento: qué información existe en ese instante y cuál todavía no.
+**Escribe qué predice tu modelo y en qué momento: qué información existe en ese instante y cuál todavía no.**
+El modelo predice UNITS, que son cuantas unidades de un producto se venden en una determinada tienda en un día.
+#### Antes
+- ITM_ID
+- CAT_ID
+- DEPT_ID
+- STORE_ID
+- STATE_ID
+- EVENT_NM_*
+- IS_EVENT_DAY
+- IS_CHRISTMAS_CLOSED
+- IS_SNAP
+- SELL_PRICE
+- Columnas calendario
 
-_(tu respuesta)_
+#### Después
+- UNITS
+- IS_SALES_SPIKE
+- IS_STORE_CLOSES
 
 ### Paso 2: construye las 2 features (15 minutos)
 
 Completa la plantilla con 2 columnas nuevas, derivadas de las existentes. Al menos una tiene que salir de uno de tus hallazgos de la exploración.
-
-_(el código de cada feature)_
+- **hace7:** Recupera la ultima semana.
+- **snap_comida:** Un indicador binario que resulta de combinar los días de asistencia SNAP con la categoría de productos de alimentos (FOODS).
 
 ### Paso 3: justifica cada feature (5 minutos)
 
 Para cada una: de qué hallazgo o conocimiento del dominio sale, qué evidencia muestra que aporta (una correlación, una diferencia de promedios), y por qué existe en el momento de predecir. Si alguna es categórica, di qué codificación usarías según el modelo que planeas entrenar.
 
-**Feature 1:**
+**Feature 1:** Las ventas presentan una fuerte estabilidad semanal, hay que ver como le fue a la tienda en la última semana.
 
-_(tu justificación)_
-
-**Feature 2:**
-
-_(tu justificación)_
+**Feature 2:** Se fundamenta en el aumento del consumo de alimentos durante períodos de beneficios público, es una variable
 
 ## Antes de la próxima sesión
 
