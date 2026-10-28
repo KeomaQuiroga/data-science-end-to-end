@@ -79,12 +79,16 @@ python3 ejercicio2_regularizacion.py
 ```
 
 **Respuesta 1: ¿Cuántas columnas recibe la regresión con interacciones de grado 3, y cuántas filas de entrenamiento hay? ¿Qué tiene que ver esa comparación con el error en prueba que obtuviste?**
+Recibe 3275 columnas con alrededor de 595 filas de entrenamiento (el 20% de la tabla). Al tener menos filas de entrenamiento que características, el modelo sufre de la multicolinealidad (sobreajuste), el error en prueba será mucho mayor que en el entrenamiento.
 
 **Respuesta 2: ¿Qué cambió entre `lineal grado 3` y `ridge grado 3` en el error de entrenamiento, y qué cambió en el de prueba? ¿Por qué Ridge empeora un poco en entrenamiento?**
+El error de lineal grado 3 es de 1'695.287.900,15 que es un error en prueba demasiado grande a diferencia de 1.32 de ridge grado 3. El error en ridge para entrenamiento empeora un poco por esto mismo, el modelo de lineal sufre de multicolinealidad y memoriza demasiado los datos, no puede generalizar para nada.
 
 **Respuesta 3: ¿Qué modelo quedó mejor en prueba? ¿Cuánto mejor que la línea base?**
+El ridge grado 3, es una mejora del 89.77%.
 
 **Si terminas antes: La brecha de la línea base es negativa (se equivoca menos en prueba que en entrenamiento). ¿Cómo puede pasar eso con un modelo que no aprende nada?**
+La línea base solo predice una variable, la mejorá se la podemos atribuir principalmente a la aleatoriedad del ajuste del modelo y la división de entrenamiento/prueba.
 
 ## Ejercicio 3: los primeros modelos de tu proyecto
 
@@ -124,6 +128,4 @@ _(tu respuesta)_
 
 **Lectura:** ["Machine Learning vs LLM: Differences, Applications & Impact"](https://www.neuralconcept.com/post/ml-vs-llm-key-differences-applications-engineering-impact), Neural Concept.
 
-Para estimar la tarifa de un viaje, podrías entrenar un ensamblaje, entrenar una red neuronal o escribirle a un LLM los datos del viaje y pedirle un número. ¿Qué tendrías que medir de cada opción, además del error, para decidir cuál usar en la app de taxis?
-
-_(tu respuesta)_
+**Para estimar la tarifa de un viaje, podrías entrenar un ensamblaje, entrenar una red neuronal o escribirle a un LLM los datos del viaje y pedirle un número. ¿Qué tendrías que medir de cada opción, además del error, para decidir cuál usar en la app de taxis?**
