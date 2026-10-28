@@ -80,7 +80,7 @@ def main():
     evaluar("arbol sin limite", arbol)
 
     # TODO 3: el mismo arbol, regularizado con max_depth=8.
-    arbol_limitado = DecisionTreeRegressor(random_state=42)
+    arbol_limitado = DecisionTreeRegressor(max_depth=8, random_state=42)
     evaluar("arbol max_depth=8", arbol_limitado)
 
     # TODO 4: un bosque aleatorio (RandomForestRegressor) de 200 arboles, con

@@ -24,34 +24,37 @@ Porque esos modelos son entrenados en paralelo, por lo que se combina el mejor r
 
 ## Pregunta de apertura
 
-Ya tienes los datos listos para entrenar. Si entrenas dos modelos sobre el mismo conjunto y uno da un error mucho menor en entrenamiento que en prueba, ¿qué le está pasando?
-
-_(tu respuesta)_
+**Ya tienes los datos listos para entrenar. Si entrenas dos modelos sobre el mismo conjunto y uno da un error mucho menor en entrenamiento que en prueba, ¿qué le está pasando?**
+Significa que el modelo está memorizando y no logra generalizar, pues al enfrentarse a datos nuevos falla mucho más.
 
 ## Ejercicio 1: línea base, un árbol y un bosque
 
-Archivo: [`starter/ejercicio1_linea_base_y_ensamblaje.py`](./starter/ejercicio1_linea_base_y_ensamblaje.py), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv), el mismo de la sesión pasada. El script ya trae la preparación de la Semana 9 y una función `evaluar` que entrena cada modelo, mide el error absoluto medio en entrenamiento y en prueba, y lo registra en una tabla. Los 4 `TODO` son los modelos. Córrelo una vez antes de tocar nada:
+**Archivo:** [`starter/ejercicio1_linea_base_y_ensamblaje.py`](./starter/ejercicio1_linea_base_y_ensamblaje.py), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv), el mismo de la sesión pasada. El script ya trae la preparación de la Semana 9 y una función `evaluar` que entrena cada modelo, mide el error absoluto medio en entrenamiento y en prueba, y lo registra en una tabla. Los 4 `TODO` son los modelos. Córrelo una vez antes de tocar nada:
 
 ```
 cd laboratorios/semana-10-sesion-01/starter
 python3 ejercicio1_linea_base_y_ensamblaje.py
 ```
 
-**Respuesta 1 (TODO 1):** la línea base predice siempre la mediana de la tarifa. ¿Cuánto esperas que se equivoque en promedio? ¿Para qué sirve un modelo que no usa ninguna columna?
+**Respuesta 1 (TODO 1): La línea base predice siempre la mediana de la tarifa. ¿Cuánto esperas que se equivoque en promedio? ¿Para qué sirve un modelo que no usa ninguna columna?**
+La línea base nos es un punto de partida, y sirve como una referencia de lo mínimo viable. En comparación con los demás, será le model oque más se equivoque y peores resultados tenga.
 
-_(tu respuesta)_
+**Respuesta 2 (TODO 2): Un árbol sin límite puede seguir partiendo los datos hasta dejar un viaje por hoja. ¿Qué error esperas en entrenamiento, y qué esperas en prueba?**
+Al entrenar y evaluar el mismo conjunto de datos varias veces sobre el mismo modelo, existe gran posibilad de que exista memorización. El árbol no cambia y es posible que sobre aprenda de los datos, el error en entrenamiento será menor.
 
-**Respuesta 2 (TODO 2):** un árbol sin límite puede seguir partiendo los datos hasta dejar un viaje por hoja. ¿Qué error esperas en entrenamiento, y qué esperas en prueba?
-
-_(tu respuesta)_
-
-**Respuesta 3 (TODO 3 y 4):** ¿qué esperas que pase con la brecha entre entrenamiento y prueba al limitar la profundidad? ¿Y con 200 árboles promediados?
-
-_(tu respuesta)_
+**Respuesta 3 (TODO 3 y 4): ¿Qué esperas que pase con la brecha entre entrenamiento y prueba al limitar la profundidad? ¿Y con 200 árboles promediados?**
+En ambos casos el error en entrenamiento y prueba será casi parejo, pero los resultados indicarán que el modelo lográ generalizar. La brecha será la más baja de todos los modelos.
 
 **Lo que confirmó la tabla, TODO por TODO:**
+Vemos que el baseline fue el que más errortuvo, tanto en entrenamiento como en prueba. En cuanto a mejor rendimiento en entrenamiento fue el árbol sin límite (posible memorización por su bajo rendimiento en prueba), y el que mejor rendimiento en prueba fue el árbol con profundidad delímitada.
 
-_(anota el error en entrenamiento, en prueba y la brecha de cada modelo)_
+| modelo | mae_entrenamiento | mae_prueba | brecha | segundos
+| --- | --- | --- | --- | --- |
+| linea base | 13.5877 | 12.9215 | -0.6662 | 0.015
+| arbol sin limite | 0.0029 | 1.7017 | 1.6988 | 0.021
+| arbol max_depth=8 | 1.0098 | 1.2728 | 0.2630 | 0.024
+| bosque aleatorio | 0.4739 | 1.3016 | 0.8276 | 1.487
+ 
 
 ## Durante el ConcepTest
 
@@ -69,27 +72,19 @@ _(tu respuesta)_
 
 ## Ejercicio 2: regularizar una regresión que se sobreajusta
 
-Solo o en pareja. Archivo: [`starter/ejercicio2_regularizacion.py`](./starter/ejercicio2_regularizacion.py), sobre el mismo `viajes_features.csv`. Mismo esqueleto del Ejercicio 1; `evaluar` acepta además `grado_interacciones=3`, que agrega como columnas todos los productos entre columnas hasta grado 3. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación. Complétalos hasta que todas digan `OK`.
+**Solo o en pareja. Archivo:** [`starter/ejercicio2_regularizacion.py`](./starter/ejercicio2_regularizacion.py), sobre el mismo `viajes_features.csv`. Mismo esqueleto del Ejercicio 1; `evaluar` acepta además `grado_interacciones=3`, que agrega como columnas todos los productos entre columnas hasta grado 3. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación. Complétalos hasta que todas digan `OK`.
 
 ```
 python3 ejercicio2_regularizacion.py
 ```
 
-**Respuesta 1:** ¿cuántas columnas recibe la regresión con interacciones de grado 3, y cuántas filas de entrenamiento hay? ¿Qué tiene que ver esa comparación con el error en prueba que obtuviste?
+**Respuesta 1: ¿Cuántas columnas recibe la regresión con interacciones de grado 3, y cuántas filas de entrenamiento hay? ¿Qué tiene que ver esa comparación con el error en prueba que obtuviste?**
 
-_(tu respuesta)_
+**Respuesta 2: ¿Qué cambió entre `lineal grado 3` y `ridge grado 3` en el error de entrenamiento, y qué cambió en el de prueba? ¿Por qué Ridge empeora un poco en entrenamiento?**
 
-**Respuesta 2:** ¿qué cambió entre `lineal grado 3` y `ridge grado 3` en el error de entrenamiento, y qué cambió en el de prueba? ¿Por qué Ridge empeora un poco en entrenamiento?
+**Respuesta 3: ¿Qué modelo quedó mejor en prueba? ¿Cuánto mejor que la línea base?**
 
-_(tu respuesta)_
-
-**Respuesta 3:** ¿qué modelo quedó mejor en prueba? ¿Cuánto mejor que la línea base?
-
-_(tu respuesta)_
-
-**Si terminas antes:** la brecha de la línea base es negativa (se equivoca menos en prueba que en entrenamiento). ¿Cómo puede pasar eso con un modelo que no aprende nada?
-
-_(tu respuesta)_
+**Si terminas antes: La brecha de la línea base es negativa (se equivoca menos en prueba que en entrenamiento). ¿Cómo puede pasar eso con un modelo que no aprende nada?**
 
 ## Ejercicio 3: los primeros modelos de tu proyecto
 
