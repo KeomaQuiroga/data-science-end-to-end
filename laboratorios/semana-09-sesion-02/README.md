@@ -43,17 +43,30 @@ python3 ejercicio1_fuga.py
 ```
 
 **Respuesta 1, antes de ver la solución: En la versión del compañero, ¿en qué línea entra el conjunto de prueba al entrenamiento? ¿Qué número de la salida lo delata?**
-Se realiza el escalamiento de datos antes de dividir al conjunto.
+Se realiza el escalamiento sobre todo el conjunto de datos antes de separar entrenamiento y prueba.
+```
+X_preparado = escalador.fit_transform(imputador.fit_transform(X))
+X_ent_fuga, X_prueba_fuga, y_ent_fuga, y_prueba_fuga = train_test_split(
+    X_preparado, y, test_size=0.2, random_state=42)
+```
 
 **Respuesta 2 (TODO 1 y 3): Sin resolver, la versión correcta dice que tiene 2975 filas de prueba. ¿Qué está midiendo ese error, si prueba y entrenamiento son las mismas filas?**
-Está viendo todas las filas para escalar, para el escalador todas las filas son las mismas y no hay división.
+Está viendo todas las filas para escalar, para el escalador todas las filas son las mismas y no hay división, existe fuga de datos.
 
 **Respuesta 3: ¿Cuánto esperas que cambie el error absoluto medio en prueba al corregir la fuga? Si casi no cambia, ¿significa que no había fuga?**
-
+El error mejorará razonablemente para indicar que hubo un problema, de igual forma es un error de fuga de datos que necesita ser solucionado para mejorar el rendimiento del modelo.
 
 **Lo que confirmó la salida, TODO por TODO:**
+Version del companero
+Filas que vio el escalador: 2975
+Media de distancia usada para escalar: 8.5034
+Error absoluto medio en prueba: 2.5375
 
-_(anota las filas que vio cada escalador y los dos errores)_
+Version correcta
+Filas que vio el escalador: 2380
+Media de distancia usada para escalar: 8.5576
+Filas de prueba: 595
+Error absoluto medio en prueba: 2.5373
 
 ## Durante el ConcepTest
 
@@ -71,23 +84,20 @@ _(tu respuesta)_
 
 ## Ejercicio 2: el pipeline completo
 
-Solo o en pareja. Archivo: [`starter/ejercicio2_pipeline.py`](./starter/ejercicio2_pipeline.py), sobre el mismo `viajes_features.csv`. Completa los 5 `TODO`: división, `ColumnTransformer` con tres grupos de columnas, `fit` solo con entrenamiento, verificación de las medianas, y un viaje desde una zona que el entrenamiento nunca vio. Al final, el script imprime una comprobación por TODO: complétalos hasta que todas digan `OK`.
+**Solo o en pareja. Archivo:** [`starter/ejercicio2_pipeline.py`](./starter/ejercicio2_pipeline.py), sobre el mismo `viajes_features.csv`. Completa los 5 `TODO`: división, `ColumnTransformer` con tres grupos de columnas, `fit` solo con entrenamiento, verificación de las medianas, y un viaje desde una zona que el entrenamiento nunca vio. Al final, el script imprime una comprobación por TODO: complétalos hasta que todas digan `OK`.
 
 ```
 python3 ejercicio2_pipeline.py
 ```
 
-**Respuesta 1:** ¿cuántas columnas quedan después de preparar los datos? Explica de dónde sale ese número a partir de los tres grupos de columnas.
+**Respuesta 1: ¿Cuántas columnas quedan después de preparar los datos? Explica de dónde sale ese número a partir de los tres grupos de columnas.**
+Quedan 25 columnas; 2 para las columnas numéricas, 5 para columnas ya listas y 3 para columnas categóricas (se expande con one hot encoder).
 
-_(tu respuesta)_
+**Respuesta 2: ¿Las medianas que aprendió el imputador coinciden con las de entrenamiento o con las de todo el dataset? ¿Qué demuestra eso?**
+Las medianas del entrenamiento coinciden con las del dataset, la del imputador difere un poco. Se debe aplicar el proceso de medianas para el conjunto de entrenamiento, de esta forma evitamos fuga de datos al combinar procesos de preparación y división.
 
-**Respuesta 2:** ¿las medianas que aprendió el imputador coinciden con las de entrenamiento o con las de todo el dataset? ¿Qué demuestra eso?
-
-_(tu respuesta)_
-
-**Respuesta 3:** ¿qué le pasa al viaje desde el Bronx? ¿Qué habría pasado con `pd.get_dummies` aplicado por separado a ese viaje?
-
-_(tu respuesta)_
+**Respuesta 3: ¿Qué le pasa al viaje desde el Bronx? ¿Qué habría pasado con `pd.get_dummies` aplicado por separado a ese viaje?**
+CUando se encuentra una categoría no vista solo ignora la característica por el `handle_unknown="ignore"`.
 
 ## Ejercicio 3: el pipeline de tu proyecto
 
