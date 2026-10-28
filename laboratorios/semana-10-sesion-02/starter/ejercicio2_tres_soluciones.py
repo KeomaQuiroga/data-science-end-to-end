@@ -58,9 +58,7 @@ def preparacion():
         ]), CATEGORICAS),
     ])
 
-
 resultados = []
-
 
 def evaluar(nombre, modelo):
     pipeline = Pipeline([("preparar", preparacion()), ("modelo", modelo)])
@@ -77,7 +75,6 @@ def evaluar(nombre, modelo):
     })
     print(f"{nombre:20s} entrenamiento {mae_ent:7.4f}   prueba {mae_prueba:7.4f}   {segundos:6.2f} s")
     return pipeline
-
 
 def escribir_prompt():
     filas_ejemplo = ejemplos[LEGIBLES].copy()
@@ -98,14 +95,15 @@ def escribir_prompt():
 
 
 # TODO 1: la red neuronal del Ejercicio 1, con el nombre "red neuronal".
-red = None
+red = evaluar("red neuronal", MLPRegressor(hidden_layer_sizes=(64,), random_state=42, max_iter=1000))
 
 # TODO 2: el ensamblaje del Ejercicio 1, con el nombre "gradient boosting".
-ensamblaje = None
+ensamblaje = evaluar("gradient boosting", GradientBoostingRegressor(random_state=42))
 
 # TODO 3: mae_red_muestra y mae_ensamblaje_muestra, el error absoluto
 # medio de cada modelo sobre los 20 viajes de muestra.
-mae_red_muestra = None
+
+mae_red_muestra = mean_absolute_error()
 mae_ensamblaje_muestra = None
 
 prompt = escribir_prompt()
