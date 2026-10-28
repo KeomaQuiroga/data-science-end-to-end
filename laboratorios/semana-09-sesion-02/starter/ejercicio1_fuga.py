@@ -23,20 +23,25 @@ y = viajes["tarifa"]
 print("Version del companero")
 imputador = SimpleImputer(strategy="median")
 escalador = StandardScaler()
+
 X_preparado = escalador.fit_transform(imputador.fit_transform(X))
 X_ent_fuga, X_prueba_fuga, y_ent_fuga, y_prueba_fuga = train_test_split(
     X_preparado, y, test_size=0.2, random_state=42)
+
 modelo_fuga = LinearRegression().fit(X_ent_fuga, y_ent_fuga)
 mae_fuga = mean_absolute_error(y_prueba_fuga, modelo_fuga.predict(X_prueba_fuga))
+
 print("Filas que vio el escalador:", escalador.n_samples_seen_)
 print("Media de distancia usada para escalar:", round(escalador.mean_[0], 4))
 print(f"Error absoluto medio en prueba: {mae_fuga:.4f}")
+
+###########################################################################
 
 print()
 print("Version correcta")
 # TODO 1: divide X e y en entrenamiento (80%) y prueba (20%), con
 # random_state=42, antes de calcular cualquier estadistica.
-X_ent, X_prueba, y_ent, y_prueba = train_test_split(X, y, test_size=0.2)
+X_ent, X_prueba, y_ent, y_prueba = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # TODO 2: un Pipeline con tres pasos: imputar con la mediana, escalar y
 # la regresion lineal.

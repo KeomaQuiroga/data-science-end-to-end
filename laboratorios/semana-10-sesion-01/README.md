@@ -109,20 +109,16 @@ Una fila por modelo, con la métrica de tu proyecto en entrenamiento y en prueba
 ### Entregable 3: respuestas
 
 **¿Cuál es tu línea base, y por qué esa y no otra?**
-
-_(tu respuesta)_
+Se va a ocupar un DummyRegressor, esto porque se va a estimar la cantidad de un dato (en este caso las unidades de un producto).
 
 **¿Alguno de tus modelos se sobreajusta? Muestra la evidencia con números de tu tabla.**
 
-_(tu respuesta)_
 
 **¿Qué regularización aplicaste (o por qué no hizo falta), y qué cambió en la tabla?**
 
-_(tu respuesta)_
 
 **¿Cuánto mejora tu mejor modelo a la línea base?**
 
-_(tu respuesta)_
 
 ## Antes de la próxima sesión
 

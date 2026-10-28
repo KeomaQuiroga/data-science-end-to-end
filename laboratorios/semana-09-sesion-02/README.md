@@ -23,39 +23,33 @@ Ten a mano el script de features de tu proyecto de la sesión pasada.
 A partir de la lectura previa:
 
 **Según el artículo, ¿qué es la fuga de información, y por qué un modelo con fuga puede verse excelente en la evaluación y fallar en producción?**
-
-_(tu respuesta)_
+Cuando el conjunto de prueba se incluye dentro del conjunto de entrenamiento, provoca métricas poco realistas y sobreajuste del modelo. En prueba el modelo se encuentra en un ambiente controlado, con datos que están dentro del conjunto "memorizado". Sin embargo, en produucción empieza a recibir nuevos datos, por lo que el modelo al no saber generalizar empieza a fallar mucho más.
 
 **El artículo describe varias formas en que se produce una fuga. ¿Cuál de ellas viste la sesión pasada con la duración del viaje?**
-
-_(tu respuesta)_
+Es cuando el modelo recibe datos del futuro. En este caso, recibe la duración del viaje, un dato que solo se debería saber una vez es completado.
 
 ## Pregunta de apertura
 
-Para escalar la distancia, le restas la media y la divides por la desviación estándar. ¿Con qué viajes calculas esa media: con todos, o solo con los de entrenamiento? ¿Cambia algo?
-
-_(tu respuesta)_
+**Para escalar la distancia, le restas la media y la divides por la desviación estándar. ¿Con qué viajes calculas esa media: con todos, o solo con los de entrenamiento? ¿Cambia algo?**
+Solo para los datos de entrenamiento, si lo hacemos en todo el modelo empezará a dar métricas poco realistas pareciendo que el modelo es mejor de lo que aparenta.
 
 ## Ejercicio 1: encontrar y corregir la fuga
 
-Archivo: [`starter/ejercicio1_fuga.py`](./starter/ejercicio1_fuga.py), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv): los viajes de taxi con las features de la sesión pasada, sin los errores confirmados, y con la distancia 0 y los 0 pasajeros marcados como faltantes. La primera parte del script es el código de un compañero: imputa y escala la distancia y los pasajeros con todo el dataset, después divide en entrenamiento y prueba, y entrena una regresión lineal. La segunda parte es la versión correcta, con 3 `TODO`. Córrelo una vez antes de tocar nada:
+**Archivo:** [`starter/ejercicio1_fuga.py`](./starter/ejercicio1_fuga.py), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv): los viajes de taxi con las features de la sesión pasada, sin los errores confirmados, y con la distancia 0 y los 0 pasajeros marcados como faltantes. La primera parte del script es el código de un compañero: imputa y escala la distancia y los pasajeros con todo el dataset, después divide en entrenamiento y prueba, y entrena una regresión lineal. La segunda parte es la versión correcta, con 3 `TODO`. Córrelo una vez antes de tocar nada:
 
 ```
 cd laboratorios/semana-09-sesion-02/starter
 python3 ejercicio1_fuga.py
 ```
 
-**Respuesta 1, antes de ver la solución:** en la versión del compañero, ¿en qué línea entra el conjunto de prueba al entrenamiento? ¿Qué número de la salida lo delata?
+**Respuesta 1, antes de ver la solución: En la versión del compañero, ¿en qué línea entra el conjunto de prueba al entrenamiento? ¿Qué número de la salida lo delata?**
+Se realiza el escalamiento de datos antes de dividir al conjunto.
 
-_(tu respuesta)_
+**Respuesta 2 (TODO 1 y 3): Sin resolver, la versión correcta dice que tiene 2975 filas de prueba. ¿Qué está midiendo ese error, si prueba y entrenamiento son las mismas filas?**
+Está viendo todas las filas para escalar, para el escalador todas las filas son las mismas y no hay división.
 
-**Respuesta 2 (TODO 1 y 3):** sin resolver, la versión correcta dice que tiene 2975 filas de prueba. ¿Qué está midiendo ese error, si prueba y entrenamiento son las mismas filas?
+**Respuesta 3: ¿Cuánto esperas que cambie el error absoluto medio en prueba al corregir la fuga? Si casi no cambia, ¿significa que no había fuga?**
 
-_(tu respuesta)_
-
-**Respuesta 3:** ¿cuánto esperas que cambie el error absoluto medio en prueba al corregir la fuga? Si casi no cambia, ¿significa que no había fuga?
-
-_(tu respuesta)_
 
 **Lo que confirmó la salida, TODO por TODO:**
 
