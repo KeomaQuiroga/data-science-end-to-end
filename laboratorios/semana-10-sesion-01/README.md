@@ -15,12 +15,12 @@ Nada nuevo que instalar: todo lo de hoy está en scikit-learn, que ya usaste la 
 A partir de la lectura previa:
 
 **Según el artículo, ¿qué es un ensamblaje, y en qué se diferencian bagging y boosting en la forma de combinar sus modelos?**
-
-_(tu respuesta)_
+Un ensamblaje es la combinación de varios modelos individuales para obtener un resultado más preciso.
+- **Bagging:** Se generan varios subconjuntos de datos a partir del conjunto original. Se utilizan para entrenar a los modelos de forma paralela.
+- **Boosting:** Los modelos se entrenan de forma secuencial, es decir, un modelo realiza la predicción y el siguiente corrige los errores cometidos.
 
 **¿Por qué un promedio de muchos árboles puede equivocarse menos que el mejor de esos árboles por separado?**
-
-_(tu respuesta)_
+Porque esos modelos son entrenados en paralelo, por lo que se combina el mejor resultado de todos. Adicionalmente, el mejor árbol sufre de sobreajuste, pero el promedio de muchos árboles, ese efecto se cancela al haber demasiados existe más ruido (varianza y sesgo).
 
 ## Pregunta de apertura
 
