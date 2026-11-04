@@ -105,21 +105,20 @@ Usa tu archivo con las 2 features de la sesión pasada y la plantilla [`plantill
 
 ### Paso 1: clasifica tus columnas (5 minutos)
 
-Escribe qué columnas son numéricas, cuáles categóricas y cuáles ya están listas, y cuál es el objetivo. Deja fuera toda columna que no exista al momento de predecir.
-
-_(tu clasificación)_
+**Escribe qué columnas son numéricas, cuáles categóricas y cuáles ya están listas, y cuál es el objetivo. Deja fuera toda columna que no exista al momento de predecir.**
+La columna a calcular es UNITS
+- NUMERICAS = ["SELL_PRICE", "unidades_hace_7d"]
+- CATEGORICAS = ["DEPT_ID", "STORE_ID", "WEEKDAY", "EVENT_TYPE_1"]
+- YA_LISTAS = ["IS_SNAP", "IS_WEEKEND", "IS_EVENT_DAY", "es_snap_comida"]
 
 ### Paso 2: decide cómo dividir (5 minutos)
-
-¿Tu modelo predice el futuro a partir de filas con fecha? Si sí, divide por fecha; si no, al azar. Justifica.
-
-_(tu decisión)_
+**¿Tu modelo predice el futuro a partir de filas con fecha? Si sí, divide por fecha; si no, al azar. Justifica.**
+El modelo predice el futuro, más concreto, estima la cantidad de producto que se necesita para evitar que sobre ni que falte lo menos posible. Por lo tanto, debemos dividir por fechas, la prueba usamos con los últimos 7 días del mes.
 
 ### Paso 3: construye y corre el pipeline (15 minutos)
-
-Completa la plantilla y córrela. Anota la forma de los conjuntos de entrenamiento y prueba ya preparados, y la lista de columnas que produce.
-
-_(lo que imprimió tu pipeline)_
+**Completa la plantilla y córrela. Anota la forma de los conjuntos de entrenamiento y prueba ya preparados, y la lista de columnas que produce.**
+El conjunto ocupa 33 columnas, entrenamiento tendr'a 792740 filas y prueba 213430 filas. Las nuevas columnas son:
+['numericas__SELL_PRICE', 'numericas__unidades_hace_7d', 'categoricas__DEPT_ID_FOODS_1', 'categoricas__DEPT_ID_FOODS_2', 'categoricas__DEPT_ID_FOODS_3', 'categoricas__DEPT_ID_HOBBIES_1', 'categoricas__DEPT_ID_HOBBIES_2', 'categoricas__DEPT_ID_HOUSEHOLD_1', 'categoricas__DEPT_ID_HOUSEHOLD_2', 'categoricas__STORE_ID_CA_1', 'categoricas__STORE_ID_CA_2', 'categoricas__STORE_ID_CA_3', 'categoricas__STORE_ID_CA_4', 'categoricas__STORE_ID_TX_1', 'categoricas__STORE_ID_TX_2', 'categoricas__STORE_ID_TX_3', 'categoricas__STORE_ID_WI_1', 'categoricas__STORE_ID_WI_2', 'categoricas__STORE_ID_WI_3', 'categoricas__WEEKDAY_Friday', 'categoricas__WEEKDAY_Monday', 'categoricas__WEEKDAY_Saturday', 'categoricas__WEEKDAY_Sunday', 'categoricas__WEEKDAY_Thursday', 'categoricas__WEEKDAY_Tuesday', 'categoricas__WEEKDAY_Wednesday', 'categoricas__EVENT_TYPE_1_Cultural', 'categoricas__EVENT_TYPE_1_Religious', 'categoricas__EVENT_TYPE_1_no_event', 'ya_listas__IS_SNAP', 'ya_listas__IS_WEEKEND', 'ya_listas__IS_EVENT_DAY', 'ya_listas__es_snap_comida']
 
 ## Antes de la próxima sesión
 

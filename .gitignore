@@ -27,7 +27,8 @@ data/processed/
 # Logs
 *.log
 <<<<<<< HEAD
-**/obt_sales.csv.gz
+**/**.csv.gz
+**/**.csv
 =======
 
 # Terraform (el estado guarda las credenciales en texto plano: nunca se sube)

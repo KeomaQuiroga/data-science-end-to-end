@@ -129,6 +129,7 @@ El modelo predice UNITS, que son cuantas unidades de un producto se venden en un
 - UNITS
 - IS_SALES_SPIKE
 - IS_STORE_CLOSES
+- REVENUE
 
 ### Paso 2: construye las 2 features (15 minutos)
 
