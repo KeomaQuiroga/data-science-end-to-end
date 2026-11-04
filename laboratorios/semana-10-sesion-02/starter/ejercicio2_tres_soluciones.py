@@ -102,9 +102,9 @@ ensamblaje = evaluar("gradient boosting", GradientBoostingRegressor(random_state
 
 # TODO 3: mae_red_muestra y mae_ensamblaje_muestra, el error absoluto
 # medio de cada modelo sobre los 20 viajes de muestra.
-
-mae_red_muestra = mean_absolute_error()
-mae_ensamblaje_muestra = None
+mae_red_muestra = mean_absolute_error(y_muestra, red.predict(muestra))
+mae_ensamblaje_muestra = mean_absolute_error(y_muestra, ensamblaje.predict(muestra))
+print(f"MAE en la muestra: red {mae_red_muestra:.4f}   ensamblaje {mae_ensamblaje_muestra:.4f}")
 
 prompt = escribir_prompt()
 print()
@@ -114,14 +114,32 @@ print("prompt_llm.txt escrito:", len(prompt), "caracteres")
 # y mae_llm, su error absoluto medio sobre los mismos 20 viajes.
 predicciones_llm = None
 mae_llm = None
+if os.path.exists("respuestas_llm.txt"):
+    with open("respuestas_llm.txt") as archivo:
+        predicciones_llm = [
+            float(linea.strip().replace("$", "").replace(",", ""))
+            for linea in archivo
+            if linea.strip()
+        ]
+    if len(predicciones_llm) == 20:
+        mae_llm = mean_absolute_error(y_muestra, predicciones_llm)
+        print(f"MAE del LLM en la muestra: {mae_llm:.4f}")
+    else:
+        print("respuestas_llm.txt tiene", len(predicciones_llm), "numeros; deben ser 20")
+else:
+    print("No hay archivo")
 
 # Paso 5: el costo de estimar 10 000 viajes al mes con el LLM, en
 # dolares, en costo_10000. Busca en la pagina de precios del proveedor
 # que usaste el precio por millon de tokens de entrada y anotalo abajo.
 # Cuenta un token cada 4 caracteres, y un prompt como este por cada 20
 # viajes; ignora los tokens de salida.
-PRECIO_POR_MILLON_DE_TOKENS = None
-costo_10000 = None
+PRECIO_POR_MILLON_DE_TOKENS = 4.00
+tokens_por_prompt = len(prompt) / 4     # 1 token cada 4 caracteres
+prompts_por_mes = 10_000 / 20       # un prompt cada 20 viajes = 500
+tokens_por_mes = tokens_por_prompt * prompts_por_mes
+costo_10000 = tokens_por_mes / 1_000_000 * PRECIO_POR_MILLON_DE_TOKENS
+print(f"Tokens al mes: {tokens_por_mes:,.0f}   costo estimado: ${costo_10000:.4f}")
 
 
 def comprobar(numero, condicion):
@@ -140,3 +158,13 @@ comprobar(3, mae_red_muestra is not None and mae_ensamblaje_muestra is not None
 comprobar(4, os.path.exists("respuestas_llm.txt") and predicciones_llm is not None
           and len(predicciones_llm) == 20 and mae_llm is not None)
 comprobar(5, PRECIO_POR_MILLON_DE_TOKENS is not None and costo_10000 is not None and costo_10000 > 0)
+
+
+comparacion = muestra[LEGIBLES].copy()
+comparacion["real"] = y_muestra.values
+comparacion["llm"] = predicciones_llm
+comparacion["ensamblaje"] = ensamblaje.predict(muestra)
+comparacion["error_llm"] = (comparacion["llm"] - comparacion["real"]).abs()
+print()
+print("Peores predicciones del LLM:")
+print(comparacion.sort_values("error_llm", ascending=False).head(3).round(2).to_string())

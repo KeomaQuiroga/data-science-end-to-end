@@ -77,7 +77,7 @@ _(tu respuesta)_
 
 ## Ejercicio 2: tres soluciones sobre los mismos 20 viajes
 
-Solo o en pareja. Archivo: [`starter/ejercicio2_tres_soluciones.py`](./starter/ejercicio2_tres_soluciones.py), sobre el mismo `viajes_features.csv`. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación.
+**Solo o en pareja. Archivo:** [`starter/ejercicio2_tres_soluciones.py`](./starter/ejercicio2_tres_soluciones.py), sobre el mismo `viajes_features.csv`. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación.
 
 1. Completa los `TODO` 1 a 3 y corre el script. Además de entrenar, escribe `prompt_llm.txt`: 30 viajes con su tarifa como ejemplos y 20 viajes sin tarifa.
 2. Copia `prompt_llm.txt` completo en un LLM de chat. Guarda los 20 números que responda, uno por línea, en `respuestas_llm.txt`, en la carpeta `starter`.
@@ -87,41 +87,36 @@ Solo o en pareja. Archivo: [`starter/ejercicio2_tres_soluciones.py`](./starter/e
 python3 ejercicio2_tres_soluciones.py
 ```
 
-**Respuesta 1:** ¿qué LLM usaste? Completa la tabla con los números de tu corrida.
-
+**Respuesta 1: ¿Qué LLM usaste? Completa la tabla con los números de tu corrida.**
+Se uso Claude Opus 5.5 high.
 | | Error en los 20 viajes | Costo de entrenar | Costo de 10 000 viajes al mes | ¿Puedes explicar una predicción? |
 |---|---|---|---|---|
-| Gradient boosting | _(…)_ | _(…)_ | _(…)_ | _(…)_ |
-| Red neuronal | _(…)_ | _(…)_ | _(…)_ | _(…)_ |
-| LLM | _(…)_ | _(…)_ | _(…)_ | _(…)_ |
+| Gradient boosting | 0.8957 | 0.3s | 0$ | Si |
+| Red neuronal | 0.9637 | 5s | 0$ | Difícil, pero aún es justificable |
+| LLM | 0.765 | 0$ | 1.45$ | Sin garantía |
 
-**Respuesta 2:** corre el mismo prompt otra vez, en una conversación nueva. ¿Te dio los mismos 20 números? ¿Qué problema le trae eso a una app que le cobra al pasajero?
+**Respuesta 2: Corre el mismo prompt otra vez, en una conversación nueva. ¿Te dio los mismos 20 números? ¿Qué problema le trae eso a una app que le cobra al pasajero?**
+No dan los mismo 20 resultados, solo coincide con los resultados fijos. Significa que cada viaje se cobra con diferente precio, algo que es injusto para el pasajero.
 
-_(tu respuesta)_
+**Respuesta 3: Busca en tus 20 respuestas la peor predicción del LLM. ¿Qué tiene de particular ese viaje? ¿Lo habría aprendido el ensamblaje con las 2380 filas de entrenamiento?**
+La peor predicción del LLM fue de Lower Manhattan → Midtown, el LLM dijo 19.99 y la tarifa real era 17.65, un error de 2.34. Lo particular es que es hora pico, y ambos modelos esperaban una tarifa más alta por eso, pero el viaje salió más barato de lo normal. 
+El ensamblaje predijo 19.52, con un error de 1.87, así que tampoco lo habría aprendido. Con 2380 filas aprende bien el patrón promedio, pero no puede anticipar una variación individual que no se explica con las columnas disponibles (el tráfico real de ese día, por ejemplo).
 
-**Respuesta 3:** busca en tus 20 respuestas la peor predicción del LLM. ¿Qué tiene de particular ese viaje? ¿Lo habría aprendido el ensamblaje con las 2380 filas de entrenamiento?
-
-_(tu respuesta)_
-
-**Si terminas antes:** el error en los 20 viajes de muestra no es el mismo que en los 595 de prueba. ¿Por qué no se mide el LLM sobre los 595, y qué tan confiable es una comparación sobre 20?
-
-_(tu respuesta)_
+**Si terminas antes: El error en los 20 viajes de muestra no es el mismo que en los 595 de prueba. ¿Por qué no se mide el LLM sobre los 595, y qué tan confiable es una comparación sobre 20?**
+El LLM no se mide sobre los 595 viajes, mientras que los modelos predicen los 595 en milisegundos. Además, el propio LLM varía en cuanto al precio de cada respuesta, así que la diferencia entre las soluciones es del mismo tamaño que el ruido.
 
 ## Ejercicio 3: ¿qué solución conviene para tu proyecto?
 
 Usa tu pipeline y la tabla de resultados de la sesión pasada. Esta vez no hay plantilla.
 
 ### Entregable 1: `comparar_proyecto.py`
-
-Un script que entrene, con tu pipeline y tu división, el mejor ensamblaje de la sesión pasada y una red neuronal simple (`MLPRegressor` o `MLPClassifier`), y registre para cada uno la métrica de prueba, los segundos de entrenamiento y, para la red, la cantidad de parámetros.
+**Un script que entrene, con tu pipeline y tu división, el mejor ensamblaje de la sesión pasada y una red neuronal simple (`MLPRegressor` o `MLPClassifier`), y registre para cada uno la métrica de prueba, los segundos de entrenamiento y, para la red, la cantidad de parámetros.**
 
 ### Entregable 2: la prueba del LLM
-
-Elige 10 filas de tu conjunto de prueba y escribe un prompt con algunas filas de entrenamiento como ejemplos, como el de `prompt_llm.txt`. Pásalo a un LLM y registra su métrica sobre esas 10 filas, junto con la de tus dos modelos sobre las mismas 10. Si tu problema no se puede plantear así (por ejemplo, porque cada predicción necesita una historia larga), explica por qué; eso también es una respuesta.
+**Elige 10 filas de tu conjunto de prueba y escribe un prompt con algunas filas de entrenamiento como ejemplos, como el de `prompt_llm.txt`. Pásalo a un LLM y registra su métrica sobre esas 10 filas, junto con la de tus dos modelos sobre las mismas 10. Si tu problema no se puede plantear así (por ejemplo, porque cada predicción necesita una historia larga), explica por qué; eso también es una respuesta.**
 
 ### Entregable 3: la decisión
-
-Una tabla con las tres opciones (métrica, costo, explicabilidad) y un párrafo que diga cuál usarías en tu proyecto y por qué, con los números de tu tabla.
+**Una tabla con las tres opciones (métrica, costo, explicabilidad) y un párrafo que diga cuál usarías en tu proyecto y por qué, con los números de tu tabla.**
 
 _(tu tabla)_
 
