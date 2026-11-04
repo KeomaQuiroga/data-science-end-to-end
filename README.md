@@ -2,21 +2,18 @@
 
 Repositorio base del curso.
 
-Aquí viven los laboratorios y los PSets, construidos alrededor de un solo proyecto de ciencia de datos que cada estudiante define y lleva de principio a fin durante las 16 semanas. Es la fuente de verdad: todo tu trabajo del semestre va aquí, no en otro lado.
+Aquí viven los laboratorios y los PSets, construidos en torno a un único proyecto de ciencia de datos que cada estudiante define y lleva a cabo de principio a fin durante la clase. Es la fuente de la verdad: todo tu trabajo del semestre va aquí, no en otro lado.
 
 ## Antes de empezar
 
 No clones ni hagas push a este repositorio directamente. Cada estudiante trabaja en su propio fork:
 
-1. Arriba a la derecha, clic en **"Fork"** y créalo en tu propia cuenta de GitHub.
+1. Arriba a la derecha, haz clic en **"Fork"** y créalo en tu propia cuenta de GitHub.
 2. Todo tu trabajo del semestre (laboratorios, PSets) va en tu fork, no aquí.
 
 ## Tu ambiente de desarrollo
 
-<<<<<<< HEAD
-Las primeras dos semanas del curso son de formulación y diseño del proyecto: no requieren código ni un ambiente de desarrollo todavía. Desde la Semana 3, Sesión 1 ("Contenedores para pipelines de proyectos"), cada laboratorio produce código real: empaquetas el ambiente de tu proyecto con Docker (Semana 3, Sesión 1) y aprovisionas su almacenamiento con Terraform sobre Google Cloud (Semana 3, Sesión 2). Cada carpeta de `laboratorios/` que lo requiera trae sus propios requisitos e instrucciones de instalación en su `README.md`; no hay un ambiente único para todo el curso, porque cada estudiante empaqueta el ambiente de su propio proyecto, no uno compartido.
-=======
-Las primeras dos semanas del curso son de formulación y diseño del proyecto: no requieren código. Desde la Semana 3, cada laboratorio usa herramientas que se instalan una sola vez: Python, Docker, Terraform, Java (para Spark), DuckDB, dbt y las librerías fijadas en [`requirements.txt`](./requirements.txt). Tienes dos opciones, y las dos llegan exactamente al mismo ambiente.
+Las primeras dos semanas del curso son de formulación y diseño del proyecto: no requieren código. Desde la Semana 3, cada laboratorio usa herramientas que se instalan una sola vez: Python, Docker, Terraform, Java (para Spark), DuckDB, dbt, Jupyter y las librerías fijadas en [`requirements.txt`](./requirements.txt). Tienes dos opciones, y las dos llegan exactamente al mismo ambiente.
 
 ### Opción A (recomendada): GitHub Codespaces
 
@@ -32,7 +29,7 @@ Cinco reglas para no quedarte sin cuota ni perder trabajo:
 - **Haz commit y push seguido.** Un Codespace sin usar durante 30 días se borra con todo lo que no hayas subido a tu fork.
 - **Tus datos no se suben a git** (`data/raw/` y `data/processed/` están en `.gitignore`). Guarda la fuente original de tu dataset fuera del Codespace (el enlace de descarga, o una copia en tu Drive), para poder volver a traerlo si el Codespace se borra.
 - **Usa una máquina de 4 núcleos solo cuando el laboratorio lo pida.** Kestra (Semana 4, Sesión 1) y el laboratorio integrador (Semana 7, Sesión 1) levantan varios servicios a la vez; ahí cambia el tipo de máquina ("Change machine type"). El resto del curso funciona con 2 núcleos, que gasta la mitad de la cuota.
-- **Las interfaces web no se abren en el `localhost` de tu navegador.** pgAdmin (puerto 8085) y Kestra (puerto 8080) corren dentro del Codespace: ábrelas desde la pestaña **Ports** de VS Code, con el ícono del globo junto al puerto.
+- **Las interfaces web no se abren en el `localhost` de tu navegador.** pgAdmin (puerto 8085), Kestra (puerto 8080) y MLflow (puerto 5050) corren dentro del Codespace: ábrelas desde la pestaña **Ports** de VS Code, con el ícono del globo junto al puerto. El servidor de MLflow se levanta solo cada vez que inicia el Codespace; si no responde, `bash .devcontainer/mlflow-server.sh` lo vuelve a levantar.
 
 ### Opción B: tu propia laptop
 
@@ -47,7 +44,19 @@ Si ya tienes Docker Desktop y VS Code con la extensión Dev Containers, hay un a
 ### El Codespace es un contenedor, y no reemplaza al de tu proyecto
 
 El Codespace trae las herramientas del curso, iguales para todos. Tu proyecto, en cambio, se empaqueta en su propia imagen de Docker (Semana 3, Sesión 1), con solo lo que necesita para correr en cualquier máquina. Son dos cosas distintas, y el curso necesita las dos.
->>>>>>> f9c474b3a2c2e5c9177d6177a998d779a6788b94
+
+## Notebooks y scripts
+
+El curso usa los dos, y cada laboratorio dice cuál. El criterio es el mismo de un equipo de datos en una empresa:
+
+- **Notebook (`.ipynb`)** cuando el resultado es algo que lees para decidir: diagnosticar la calidad de un dataset, explorarlo, probar features, comparar modelos. La tabla o el gráfico queda debajo del código que lo produjo, y puedes volver a correr una sola celda sin repetir todo lo anterior.
+- **Script (`.py`)** cuando el resultado tiene que correr sin nadie mirando: lo que ejecuta un contenedor, una tarea de Kestra, un job de Spark, el pipeline de preparación que importan otros archivos, un servicio de predicción.
+
+El paso de uno a otro también se practica: lo que decides en tu notebook de diagnóstico (Semana 4) pasa a un script de limpieza (Semana 7), y las features que pruebas en tu notebook (Semana 9, Sesión 1) pasan a `pipeline_proyecto.py`, que tus notebooks de modelos importan en vez de copiar el código (Semana 9, Sesión 2, en adelante).
+
+Para abrir un notebook en el Codespace, haz clic en el archivo `.ipynb`. La primera vez, VS Code pide un kernel ("Select Kernel"): elige **Python Environments** y después **Python 3.11** (`/usr/local/bin/python`), el Python que tiene instaladas las librerías del curso. En tu laptop sin VS Code, corre `jupyter lab` desde la raíz de tu fork.
+
+Antes de hacer commit de un notebook, reinicia el kernel y corre todo (**Restart** y después **Run All**). Un notebook muestra lo que produjo cada celda la última vez que la corriste, aunque haya sido en otro orden o con una variable que ya borraste; reiniciar y correr todo comprueba que lo que subes funciona de principio a fin.
 
 ## Estructura del repositorio
 
@@ -55,6 +64,8 @@ El Codespace trae las herramientas del curso, iguales para todos. Tu proyecto, e
 .devcontainer/          Configuración del Codespace (no la modifiques)
 requirements.txt        Librerías de Python del curso, con versión fija
 laboratorios/           Laboratorio de cada clase, uno por carpeta
+  semana-01-sesion-02/
+  semana-02-sesion-01/
   semana-02-sesion-02/
   semana-03-sesion-01/
   semana-03-sesion-02/
@@ -70,14 +81,9 @@ Cada carpeta de `laboratorios/` y `psets/` tiene su propio `README.md` con las i
 
 Cuando se agregue una semana nueva, sincroniza tu fork:
 
-<<<<<<< HEAD
-1. En la página de tu fork en GitHub: botón **"Sync fork" → "Update branch"**.
-2. En tu copia local o Codespace, haz `git pull` para traer esos cambios.
-=======
 1. En la página de tu fork en GitHub, haz clic en el botón **"Sync fork" → "Update branch"**.
 2. En tu copia local o en tu Codespace, ejecuta `git pull` para obtener esos cambios.
 3. Si el cambio tocó `requirements.txt`, corre `pip install -r requirements.txt`. Si tocó `.devcontainer/`, reconstruye el contenedor: en VS Code, `Ctrl+Shift+P` (`Cmd+Shift+P` en Mac) → "Codespaces: Rebuild Container" (o "Dev Containers: Rebuild Container" en tu laptop).
->>>>>>> f9c474b3a2c2e5c9177d6177a998d779a6788b94
 
 Por terminal, en vez del botón:
 ```
@@ -88,5 +94,5 @@ git merge upstream/master
 
 ## Cómo trabajar aquí
 
-- Haz commit de tu avance seguido, con mensajes que digan qué hiciste, no `"cambios"` o `"fix"`.
-- Cada entrega (laboratorio, PSet) vive en su propia carpeta con su propio `README.md`: revísalo antes de empezar.
+- Haz commits de tu avance de forma continua, con mensajes que indiquen qué hiciste, no `"cambios"` ni `"fix"`.
+- Cada entrega (laboratorio, PSet) tiene su propia carpeta con su propio `README.md`: revísalo antes de empezar.

@@ -10,56 +10,47 @@
 
 - Nada nuevo que instalar: la red neuronal es `MLPRegressor`, de scikit-learn.
 - Acceso a un LLM de chat (ChatGPT, Claude, Gemini u otro; la versión gratuita alcanza), para el Ejercicio 2.
-- La tabla de resultados de tu proyecto de la sesión pasada.
+- La tabla de resultados de tu proyecto de la sesión pasada, y tu `pipeline_proyecto.py`.
+
+Como la sesión pasada, los laboratorios son notebooks que importan la preparación de un script (`preparacion_taxis.py` en los Ejercicios 1 y 2, tu `pipeline_proyecto.py` en el 3).
 
 ## Antes de empezar
 
 A partir de la lectura previa:
 
 **Según el artículo, ¿para qué tipo de datos y de problema conviene el aprendizaje automático clásico, y para cuál un LLM?**
-Aprendizaje automático para problemas numéricos y LLM para problemas lingüisticos (analizar, entender y generar textos).
+
+_(tu respuesta)_
 
 **El artículo compara las dos opciones en datos, costo y explicabilidad. ¿Cuál de esas tres diferencias pesa más para tu proyecto?**
 
+_(tu respuesta)_
 
 ## Pregunta de apertura
 
 Para estimar la tarifa de un viaje, podrías entrenar un ensamblaje, entrenar una red neuronal o escribirle a un LLM los datos del viaje y pedirle un número. ¿Qué tendrías que medir de cada opción, además del error, para decidir cuál usar en la app de taxis?
 
+_(tu respuesta)_
 
 ## Ejercicio 1: una red neuronal frente al ensamblaje
 
-**Archivo:** [`starter/ejercicio1_red_neuronal.py`](./starter/ejercicio1_red_neuronal.py), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv). El script ya entrena el gradient boosting de la sesión pasada con la misma preparación y la misma división. Los 3 `TODO` son la red neuronal, cuántos parámetros aprendió y qué columnas usa más el ensamblaje. Córrelo una vez antes de tocar nada:
+Notebook: [`starter/ejercicio1_red_neuronal.ipynb`](./starter/ejercicio1_red_neuronal.ipynb), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv). Ya entrena el gradient boosting de la sesión pasada con la misma preparación y la misma división, importadas de [`starter/preparacion_taxis.py`](./starter/preparacion_taxis.py). Los 3 `TODO` son la red neuronal, cuántos parámetros aprendió y qué columnas usa más el ensamblaje. Córrelo completo una vez antes de tocar nada (**Run All**).
 
-```
-cd laboratorios/semana-10-sesion-02/starter
-python3 ejercicio1_red_neuronal.py
-```
+**Respuesta 1 (TODO 1):** sin resolver, la red sale peor que el ensamblaje y aparece una advertencia `ConvergenceWarning`. ¿Qué crees que significa? ¿Qué esperas al dejarla entrenar hasta 1000 iteraciones?
 
-**Respuesta 1 (TODO 1): Sin resolver, la red sale peor que el ensamblaje y aparece una advertencia `ConvergenceWarning`. ¿Qué crees que significa? ¿Qué esperas al dejarla entrenar hasta 1000 iteraciones?**
-Significa que la red no está encontrando la respuesta dentro del número de iteraciones permitidas. Si le dejamos 1000 iteraciones suponiendo que son más que las de por defecto, es posible que la red si encuentre una respuesta o esté muy cerca de la misma.
+_(tu respuesta)_
 
-**Respuesta 2 (TODO 2): Una capa oculta de 64 neuronas recibe las 25 columnas preparadas y entrega una tarifa. ¿Cuántos números tiene que aprender?**
-- pesos_entrada = 25 * 64 + 64(bias) = 1664
-- pesos_intermedio 64 * 1 + 1(bias) = 65
-- resultado = pesos_entrada + pesos_intermedio = 1729
+**Respuesta 2 (TODO 2):** una capa oculta de 64 neuronas recibe las 25 columnas preparadas y entrega una tarifa. ¿Cuántos números tiene que aprender?
 
-**Respuesta 3 (TODO 3): ¿Qué columna esperas que el ensamblaje use más? Si la app le muestra al conductor por qué la tarifa estimada es 70 dólares, ¿cuál de los dos modelos te permite responder?**
-La distancia_km, porque mide la distancia y eso define el costo del viaje. El modelo que explica es gradient boosting.
+_(tu respuesta)_
+
+**Respuesta 3 (TODO 3):** ¿qué columna esperas que el ensamblaje use más? Si la app le muestra al conductor por qué la tarifa estimada es 70 dólares, ¿cuál de los dos modelos te permite responder?
+
+_(tu respuesta)_
 
 **Lo que confirmó la salida, TODO por TODO:**
-gradient boosting    entrenamiento  1.0705   prueba  1.2754     0.43 s
-red neuronal         entrenamiento  1.0882   prueba  1.1695     6.10 s
 
-           modelo  mae_entrenamiento  mae_prueba  segundos
-gradient boosting             1.0705      1.2754     0.426
-     red neuronal             1.0882      1.1695     6.097
-
-Parametros de la red: 1729
-Las 3 columnas mas importantes para el ensamblaje:
-numericas__distancia_km      0.9824
-ya_listas__es_tarifa_fija    0.0120
-ya_listas__es_hora_pico      0.0028
+_(anota el error y el tiempo de cada modelo, los parámetros de la red y las 3 columnas más importantes)_
 
 ## Durante el ConcepTest
 
@@ -77,46 +68,47 @@ _(tu respuesta)_
 
 ## Ejercicio 2: tres soluciones sobre los mismos 20 viajes
 
-**Solo o en pareja. Archivo:** [`starter/ejercicio2_tres_soluciones.py`](./starter/ejercicio2_tres_soluciones.py), sobre el mismo `viajes_features.csv`. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación.
+Solo o en pareja. Notebook: [`starter/ejercicio2_tres_soluciones.ipynb`](./starter/ejercicio2_tres_soluciones.ipynb), sobre el mismo `viajes_features.csv`. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación.
 
-1. Completa los `TODO` 1 a 3 y corre el script. Además de entrenar, escribe `prompt_llm.txt`: 30 viajes con su tarifa como ejemplos y 20 viajes sin tarifa.
+1. Completa los `TODO` 1 a 3 y corre las celdas hasta la que escribe `prompt_llm.txt`: 30 viajes con su tarifa como ejemplos y 20 viajes sin tarifa.
 2. Copia `prompt_llm.txt` completo en un LLM de chat. Guarda los 20 números que responda, uno por línea, en `respuestas_llm.txt`, en la carpeta `starter`.
-3. Completa los pasos 4 y 5 y vuelve a correr el script hasta que todas las comprobaciones digan `OK`. Para el paso 5, busca el precio por millón de tokens de entrada del modelo que usaste en la página de precios de su proveedor.
+3. Completa los pasos 4 y 5 y corre sus celdas y la de la comprobación hasta que todas digan `OK`. Los modelos ya están entrenados en el kernel: no hace falta volver a correr las celdas de arriba. Para el paso 5, busca el precio por millón de tokens de entrada del modelo que usaste en la página de precios de su proveedor.
 
-```
-python3 ejercicio2_tres_soluciones.py
-```
+**Respuesta 1:** ¿qué LLM usaste? Completa la tabla con los números de tu corrida.
 
-**Respuesta 1: ¿Qué LLM usaste? Completa la tabla con los números de tu corrida.**
-Se uso Claude Opus 5.5 high.
 | | Error en los 20 viajes | Costo de entrenar | Costo de 10 000 viajes al mes | ¿Puedes explicar una predicción? |
 |---|---|---|---|---|
-| Gradient boosting | 0.8957 | 0.3s | 0$ | Si |
-| Red neuronal | 0.9637 | 5s | 0$ | Difícil, pero aún es justificable |
-| LLM | 0.765 | 0$ | 1.45$ | Sin garantía |
+| Gradient boosting | _(…)_ | _(…)_ | _(…)_ | _(…)_ |
+| Red neuronal | _(…)_ | _(…)_ | _(…)_ | _(…)_ |
+| LLM | _(…)_ | _(…)_ | _(…)_ | _(…)_ |
 
-**Respuesta 2: Corre el mismo prompt otra vez, en una conversación nueva. ¿Te dio los mismos 20 números? ¿Qué problema le trae eso a una app que le cobra al pasajero?**
-No dan los mismo 20 resultados, solo coincide con los resultados fijos. Significa que cada viaje se cobra con diferente precio, algo que es injusto para el pasajero.
+**Respuesta 2:** corre el mismo prompt otra vez, en una conversación nueva. ¿Te dio los mismos 20 números? ¿Qué problema le trae eso a una app que le cobra al pasajero?
 
-**Respuesta 3: Busca en tus 20 respuestas la peor predicción del LLM. ¿Qué tiene de particular ese viaje? ¿Lo habría aprendido el ensamblaje con las 2380 filas de entrenamiento?**
-La peor predicción del LLM fue de Lower Manhattan → Midtown, el LLM dijo 19.99 y la tarifa real era 17.65, un error de 2.34. Lo particular es que es hora pico, y ambos modelos esperaban una tarifa más alta por eso, pero el viaje salió más barato de lo normal. 
-El ensamblaje predijo 19.52, con un error de 1.87, así que tampoco lo habría aprendido. Con 2380 filas aprende bien el patrón promedio, pero no puede anticipar una variación individual que no se explica con las columnas disponibles (el tráfico real de ese día, por ejemplo).
+_(tu respuesta)_
 
-**Si terminas antes: El error en los 20 viajes de muestra no es el mismo que en los 595 de prueba. ¿Por qué no se mide el LLM sobre los 595, y qué tan confiable es una comparación sobre 20?**
-El LLM no se mide sobre los 595 viajes, mientras que los modelos predicen los 595 en milisegundos. Además, el propio LLM varía en cuanto al precio de cada respuesta, así que la diferencia entre las soluciones es del mismo tamaño que el ruido.
+**Respuesta 3:** busca en tus 20 respuestas la peor predicción del LLM. ¿Qué tiene de particular ese viaje? ¿Lo habría aprendido el ensamblaje con las 2380 filas de entrenamiento?
+
+_(tu respuesta)_
+
+**Si terminas antes:** el error en los 20 viajes de muestra no es el mismo que en los 595 de prueba. ¿Por qué no se mide el LLM sobre los 595, y qué tan confiable es una comparación sobre 20?
+
+_(tu respuesta)_
 
 ## Ejercicio 3: ¿qué solución conviene para tu proyecto?
 
 Usa tu pipeline y la tabla de resultados de la sesión pasada. Esta vez no hay plantilla.
 
-### Entregable 1: `comparar_proyecto.py`
-**Un script que entrene, con tu pipeline y tu división, el mejor ensamblaje de la sesión pasada y una red neuronal simple (`MLPRegressor` o `MLPClassifier`), y registre para cada uno la métrica de prueba, los segundos de entrenamiento y, para la red, la cantidad de parámetros.**
+### Entregable 1: `comparar_proyecto.ipynb`
+
+Un notebook, al lado de tu `pipeline_proyecto.py`, que importe de ahí tu preparación y tu división, y entrene el mejor ensamblaje de la sesión pasada y una red neuronal simple (`MLPRegressor` o `MLPClassifier`), y registre para cada uno la métrica de prueba, los segundos de entrenamiento y, para la red, la cantidad de parámetros.
 
 ### Entregable 2: la prueba del LLM
-**Elige 10 filas de tu conjunto de prueba y escribe un prompt con algunas filas de entrenamiento como ejemplos, como el de `prompt_llm.txt`. Pásalo a un LLM y registra su métrica sobre esas 10 filas, junto con la de tus dos modelos sobre las mismas 10. Si tu problema no se puede plantear así (por ejemplo, porque cada predicción necesita una historia larga), explica por qué; eso también es una respuesta.**
+
+Elige 10 filas de tu conjunto de prueba y escribe un prompt con algunas filas de entrenamiento como ejemplos, como el de `prompt_llm.txt`. Pásalo a un LLM y registra su métrica sobre esas 10 filas, junto con la de tus dos modelos sobre las mismas 10. Si tu problema no se puede plantear así (por ejemplo, porque cada predicción necesita una historia larga), explica por qué; eso también es una respuesta.
 
 ### Entregable 3: la decisión
-**Una tabla con las tres opciones (métrica, costo, explicabilidad) y un párrafo que diga cuál usarías en tu proyecto y por qué, con los números de tu tabla.**
+
+Una tabla con las tres opciones (métrica, costo, explicabilidad) y un párrafo que diga cuál usarías en tu proyecto y por qué, con los números de tu tabla.
 
 _(tu tabla)_
 
