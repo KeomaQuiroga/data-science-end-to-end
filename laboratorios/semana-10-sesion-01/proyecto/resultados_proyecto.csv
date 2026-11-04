@@ -1,0 +1,7 @@
+modelo,wape_entrenamiento,wape_prueba,brecha,segundos_entrenamiento
+Naive estacional (igual que hace 7 dias),0.8542,0.9001,0.0459,0.0
+DummyRegressor (media),1.2146,1.2079,-0.0067,1.6
+Ridge (alpha=1),0.862,0.8731,0.011,1.7
+Ridge (alpha=10000),0.8624,0.8727,0.0103,1.4
+Random Forest sin regularizar,0.6869,0.8392,0.1524,49.7
+Random Forest regularizado,0.8474,0.8554,0.008,33.3

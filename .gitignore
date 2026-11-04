@@ -29,6 +29,7 @@ data/processed/
 <<<<<<< HEAD
 **/**.csv.gz
 **/**.csv
+!resultados_proyecto.csv
 =======
 
 # Terraform (el estado guarda las credenciales en texto plano: nunca se sube)

@@ -95,8 +95,7 @@ La línea base solo predice una variable, la mejorá se la podemos atribuir prin
 Usa tu pipeline de la Semana 9, Sesión 2, con la misma división de entrenamiento y prueba. Esta vez no hay plantilla: escribe el script tú.
 
 ### Entregable 1: `modelos_proyecto.py`
-
-Un script, en la carpeta de tu proyecto, que entrene con tu pipeline:
+**Un script, en la carpeta de tu proyecto, que entrene con tu pipeline:**
 
 - Una línea base. Elige la que corresponde a tu problema y justifícala abajo: `DummyRegressor` o `DummyClassifier`, o una regla del dominio (por ejemplo, "mañana igual que hoy" si predices una serie en el tiempo).
 - Un modelo lineal (`Ridge` si es regresión, `LogisticRegression` si es clasificación), con la regularización que haga falta.
@@ -112,10 +111,11 @@ Una fila por modelo, con la métrica de tu proyecto en entrenamiento y en prueba
 Se va a ocupar un DummyRegressor, esto porque se va a estimar la cantidad de un dato (en este caso las unidades de un producto).
 
 **¿Alguno de tus modelos se sobreajusta? Muestra la evidencia con números de tu tabla.**
-
+Si, random forest sin regularizar. El modelo tiene un WAPE muy bajo en entrenamiento, pero aumento en prueba, significa que está memorizando. Como la brecha no es muy grande, el sobreajuste no es mucho.
 
 **¿Qué regularización aplicaste (o por qué no hizo falta), y qué cambió en la tabla?**
-
+- Ridge: Para subir el alpha, no hizo mucha diferencia en el WAPE.
+- Random forest: Se dio `min_samples_leaf=200` y `max_depth=12`.
 
 **¿Cuánto mejora tu mejor modelo a la línea base?**
 
