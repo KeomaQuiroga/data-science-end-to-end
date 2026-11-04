@@ -93,7 +93,7 @@ def main():
     # puedo saber como importa cada feature de la red
     importancias = pd.Series( 
         ensamblaje.named_steps["modelo"].feature_importances_,
-        index=ensamblaje.named_steps["preparar"].get_feature_names_out()     # las caracteriscticas
+        index=ensamblaje.named_steps["preparar"].get_feature_names_out()     # gradient boosting
     ).sort_values(ascending=False)
 
     print()

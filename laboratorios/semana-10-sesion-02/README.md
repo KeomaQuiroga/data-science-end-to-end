@@ -36,21 +36,30 @@ cd laboratorios/semana-10-sesion-02/starter
 python3 ejercicio1_red_neuronal.py
 ```
 
-**Respuesta 1 (TODO 1):** sin resolver, la red sale peor que el ensamblaje y aparece una advertencia `ConvergenceWarning`. ¿Qué crees que significa? ¿Qué esperas al dejarla entrenar hasta 1000 iteraciones?
+**Respuesta 1 (TODO 1): Sin resolver, la red sale peor que el ensamblaje y aparece una advertencia `ConvergenceWarning`. ¿Qué crees que significa? ¿Qué esperas al dejarla entrenar hasta 1000 iteraciones?**
+Significa que la red no está encontrando la respuesta dentro del número de iteraciones permitidas. Si le dejamos 1000 iteraciones suponiendo que son más que las de por defecto, es posible que la red si encuentre una respuesta o esté muy cerca de la misma.
 
-_(tu respuesta)_
+**Respuesta 2 (TODO 2): Una capa oculta de 64 neuronas recibe las 25 columnas preparadas y entrega una tarifa. ¿Cuántos números tiene que aprender?**
+- pesos_entrada = 25 * 64 + 64(bias) = 1664
+- pesos_intermedio 64 * 1 + 1(bias) = 65
+- resultado = pesos_entrada + pesos_intermedio = 1729
 
-**Respuesta 2 (TODO 2):** una capa oculta de 64 neuronas recibe las 25 columnas preparadas y entrega una tarifa. ¿Cuántos números tiene que aprender?
-
-_(tu respuesta)_
-
-**Respuesta 3 (TODO 3):** ¿qué columna esperas que el ensamblaje use más? Si la app le muestra al conductor por qué la tarifa estimada es 70 dólares, ¿cuál de los dos modelos te permite responder?
-
-_(tu respuesta)_
+**Respuesta 3 (TODO 3): ¿Qué columna esperas que el ensamblaje use más? Si la app le muestra al conductor por qué la tarifa estimada es 70 dólares, ¿cuál de los dos modelos te permite responder?**
+La distancia_km, porque mide la distancia y eso define el costo del viaje. El modelo que explica es gradient boosting.
 
 **Lo que confirmó la salida, TODO por TODO:**
+gradient boosting    entrenamiento  1.0705   prueba  1.2754     0.43 s
+red neuronal         entrenamiento  1.0882   prueba  1.1695     6.10 s
 
-_(anota el error y el tiempo de cada modelo, los parámetros de la red y las 3 columnas más importantes)_
+           modelo  mae_entrenamiento  mae_prueba  segundos
+gradient boosting             1.0705      1.2754     0.426
+     red neuronal             1.0882      1.1695     6.097
+
+Parametros de la red: 1729
+Las 3 columnas mas importantes para el ensamblaje:
+numericas__distancia_km      0.9824
+ya_listas__es_tarifa_fija    0.0120
+ya_listas__es_hora_pico      0.0028
 
 ## Durante el ConcepTest
 
