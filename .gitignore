@@ -10,6 +10,7 @@ venv/
 .ipynb_checkpoints/
 
 # Datos y modelos locales (nunca se suben, ver PSets para dónde documentar su origen)
+<<<<<<< HEAD
 data/raw/
 data/processed/
 <<<<<<< HEAD
@@ -17,7 +18,15 @@ data/processed/
 *.csv
 *.parquet
 >>>>>>> 0bca416 (add: labs)
+=======
+**/data/raw/*
+**/data/processed/*
+# Las carpetas vacias si se suben, para que la estructura del proyecto exista al clonar.
+!**/data/raw/.gitkeep
+!**/data/processed/.gitkeep
+>>>>>>> upstream/master
 *.pkl
+*.joblib
 
 # Editor / OS
 .DS_Store

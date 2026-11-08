@@ -111,6 +111,7 @@ La columna a calcular es UNITS
 - CATEGORICAS = ["DEPT_ID", "STORE_ID", "WEEKDAY", "EVENT_TYPE_1"]
 - YA_LISTAS = ["IS_SNAP", "IS_WEEKEND", "IS_EVENT_DAY", "es_snap_comida"]
 
+<<<<<<< HEAD
 ### Paso 2: decide cómo dividir (5 minutos)
 **¿Tu modelo predice el futuro a partir de filas con fecha? Si sí, divide por fecha; si no, al azar. Justifica.**
 El modelo predice el futuro, más concreto, estima la cantidad de producto que se necesita para evitar que sobre ni que falte lo menos posible. Por lo tanto, debemos dividir por fechas, la prueba usamos con los últimos 7 días del mes.
@@ -119,6 +120,41 @@ El modelo predice el futuro, más concreto, estima la cantidad de producto que s
 **Completa la plantilla y córrela. Anota la forma de los conjuntos de entrenamiento y prueba ya preparados, y la lista de columnas que produce.**
 El conjunto ocupa 33 columnas, entrenamiento tendr'a 792740 filas y prueba 213430 filas. Las nuevas columnas son:
 ['numericas__SELL_PRICE', 'numericas__unidades_hace_7d', 'categoricas__DEPT_ID_FOODS_1', 'categoricas__DEPT_ID_FOODS_2', 'categoricas__DEPT_ID_FOODS_3', 'categoricas__DEPT_ID_HOBBIES_1', 'categoricas__DEPT_ID_HOBBIES_2', 'categoricas__DEPT_ID_HOUSEHOLD_1', 'categoricas__DEPT_ID_HOUSEHOLD_2', 'categoricas__STORE_ID_CA_1', 'categoricas__STORE_ID_CA_2', 'categoricas__STORE_ID_CA_3', 'categoricas__STORE_ID_CA_4', 'categoricas__STORE_ID_TX_1', 'categoricas__STORE_ID_TX_2', 'categoricas__STORE_ID_TX_3', 'categoricas__STORE_ID_WI_1', 'categoricas__STORE_ID_WI_2', 'categoricas__STORE_ID_WI_3', 'categoricas__WEEKDAY_Friday', 'categoricas__WEEKDAY_Monday', 'categoricas__WEEKDAY_Saturday', 'categoricas__WEEKDAY_Sunday', 'categoricas__WEEKDAY_Thursday', 'categoricas__WEEKDAY_Tuesday', 'categoricas__WEEKDAY_Wednesday', 'categoricas__EVENT_TYPE_1_Cultural', 'categoricas__EVENT_TYPE_1_Religious', 'categoricas__EVENT_TYPE_1_no_event', 'ya_listas__IS_SNAP', 'ya_listas__IS_WEEKEND', 'ya_listas__IS_EVENT_DAY', 'ya_listas__es_snap_comida']
+=======
+Copia la plantilla [`plantilla-pipeline/pipeline_proyecto.py`](./plantilla-pipeline/pipeline_proyecto.py) a `psets/proyecto/modelado/`, al lado de tu notebook de features. Desde la próxima sesión, tus notebooks de modelos importan este archivo en vez de copiar su código:
+
+```python
+from pipeline_proyecto import cargar_y_dividir, construir_preparacion
+```
+
+### Paso 1: pasa tus features a `agregar_features` (5 minutos)
+
+Copia de tu notebook de la sesión pasada solo las líneas que construyen tus 2 features, dentro de la función `agregar_features`. Sin gráficos, sin `print` y sin las celdas que usaste para probar ideas: esas se quedan en el notebook, como evidencia de por qué elegiste cada feature.
+
+### Paso 2: clasifica tus columnas (5 minutos)
+
+Escribe qué columnas son numéricas, cuáles categóricas y cuáles ya están listas, y cuál es el objetivo. Deja fuera toda columna que no exista al momento de predecir.
+
+_(tu clasificación)_
+
+### Paso 3: decide cómo dividir (5 minutos)
+
+¿Tu modelo predice el futuro a partir de filas con fecha? Si sí, divide por fecha dentro de `cargar_y_dividir`; si no, al azar. Justifica.
+
+_(tu decisión)_
+
+### Paso 4: corre el script (10 minutos)
+
+Desde una terminal, en `psets/proyecto/modelado/`:
+
+```
+python3 pipeline_proyecto.py
+```
+
+Si corre de principio a fin en una terminal nueva, sin el notebook abierto, otro código ya lo puede importar. Anota la forma de los conjuntos de entrenamiento y prueba ya preparados, y la lista de columnas que produce.
+
+_(lo que imprimió tu script)_
+>>>>>>> upstream/master
 
 ## Antes de la próxima sesión
 

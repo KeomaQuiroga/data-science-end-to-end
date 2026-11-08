@@ -106,7 +106,11 @@ El modelo empezaría a alucinar o crear datos sin sentido, pues se le está entr
 
 ## Ejercicio 3: dos features para tu proyecto
 
+<<<<<<< HEAD
 Usa el mismo archivo de la exploración de la Semana 8 y la plantilla [`plantilla-features/features_proyecto.py`](./plantilla-features/features_proyecto.py).
+=======
+Usa el mismo archivo de tu exploración de la Semana 8 y copia la plantilla [`plantilla-features/features_proyecto.ipynb`](./plantilla-features/features_proyecto.ipynb) a `psets/proyecto/modelado/`, al lado de tu notebook de exploración. Todo lo que pide este ejercicio queda en el notebook: el código de cada feature, la evidencia y la justificación en las celdas de texto.
+>>>>>>> upstream/master
 
 ### Paso 1: el momento de la predicción (5 minutos)
 

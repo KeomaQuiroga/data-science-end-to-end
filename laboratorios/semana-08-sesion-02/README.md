@@ -95,7 +95,11 @@ _(tu respuesta)_
 
 ## Ejercicio 3: explora el dataset de tu proyecto
 
+<<<<<<< HEAD
 Usa el archivo que tu pipeline de la Semana 7 deja listo para modelar, y la plantilla [`plantilla-eda/explorar_proyecto.py`](./plantilla-eda/explorar_proyecto.py).
+=======
+Usa el archivo que tu pipeline de la Semana 7 deja listo para modelar. Copia la plantilla [`plantilla-eda/explorar_proyecto.ipynb`](./plantilla-eda/explorar_proyecto.ipynb) a `psets/proyecto/modelado/`: el notebook es tu entregable, con el código, lo que mostró y lo que concluyes en el mismo lugar.
+>>>>>>> upstream/master
 
 ### Paso 1: resumen y variable objetivo (5 minutos)
 
