@@ -124,7 +124,7 @@ Si, random forest sin regularizar. El modelo tiene un WAPE muy bajo en entrenami
 - Random forest: Se dio `min_samples_leaf=200` y `max_depth=12`.
 
 **¿Cuánto mejora tu mejor modelo a la línea base?**
-
+El mejor modelo fue Random forest sin regularizar, tuvo un wape mejor que DummyRegressor y su mejora fue de 30.52%. Sin embargo, vemos un wapo más bajo en entrenamiento, por lo que estaría memorizando. El segundo mejor que no parece memorizar datos es Random Forest regularizado, mejora un 29.18%, pero el wape nos indica que está generalizando.
 
 ## Antes de la próxima sesión
 
