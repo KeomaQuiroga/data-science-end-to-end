@@ -43,17 +43,14 @@ cd laboratorios/semana-08-sesion-02/starter
 python3 ejercicio1_explorar.py
 ```
 
-**Respuesta 1 (TODO 1), antes de ver la solución:** en `describe()`, ¿qué dos valores de la tabla te harían sospechar de un error sin necesidad de graficar nada?
+**Respuesta 1 (TODO 1), antes de ver la solución: En `describe()`, ¿qué dos valores de la tabla te harían sospechar de un error sin necesidad de graficar nada?**
+Valores negativos donde no deben existir (precios, distancias); valores máximos demasiado altos.
 
-_(tu respuesta)_
+**Respuesta 2 (TODO 2): Abre `figuras/hist_tarifa.png` después del TODO 2. ¿Por qué casi todo el histograma queda comprimido a la izquierda?**
+Porque hay un valor atípico de valor 999, por lo que el histograma automáticamente al tratar de mostrar todos los datos, estira la imágen mostrando estos valores.
 
-**Respuesta 2 (TODO 2):** abre `figuras/hist_tarifa.png` después del TODO 2. ¿Por qué casi todo el histograma queda comprimido a la izquierda?
-
-_(tu respuesta)_
-
-**Respuesta 3 (TODO 3 y 4):** la regla del IQR marca más de 300 viajes con tarifa atípica. ¿Esperas que todos sean errores? ¿Cómo lo averiguarías?
-
-_(tu respuesta)_
+**Respuesta 3 (TODO 3 y 4): La regla del IQR marca más de 300 viajes con tarifa atípica. ¿Esperas que todos sean errores? ¿Cómo lo averiguarías?**
+No necesariamente todos esos viajes son errores, averiguamos analizando más que lo componen.
 
 **Lo que confirmó la salida, TODO por TODO:**
 
@@ -74,24 +71,20 @@ _(tu respuesta)_
 _(tu respuesta)_
 
 ## Ejercicio 2: relaciones entre variables
-
-Solo o en pareja. Archivo: [`starter/ejercicio2_relaciones.py`](./starter/ejercicio2_relaciones.py), sobre el mismo `viajes_taxi.csv`. Quita solo los errores que el Ejercicio 1 ya confirmó y completa los 5 `TODO`: dispersión de distancia contra tarifa, propina por método de pago, correlaciones con la tarifa, y pasajeros vacíos o en 0. Al final, el script imprime una comprobación por TODO: completa los 5 hasta que todas digan `OK`.
+**Solo o en pareja. Archivo:** [`starter/ejercicio2_relaciones.py`](./starter/ejercicio2_relaciones.py), sobre el mismo `viajes_taxi.csv`. Quita solo los errores que el Ejercicio 1 ya confirmó y completa los 5 `TODO`: dispersión de distancia contra tarifa, propina por método de pago, correlaciones con la tarifa, y pasajeros vacíos o en 0. Al final, el script imprime una comprobación por TODO: completa los 5 hasta que todas digan `OK`.
 
 ```
 python3 ejercicio2_relaciones.py
 ```
 
 **Hallazgo 1: qué muestra el gráfico de distancia contra tarifa, además de la tendencia general.**
-
-_(tu hallazgo, con el número que lo confirma)_
+A más diatancia aumenta la tarifa del viaje, sin embargo hay tarifas de costo cero con viajes de gran distancia, posiblemente significa que se cancelaron.
 
 **Hallazgo 2: qué pasa con la propina según el método de pago, y si crees que describe a los pasajeros o al sistema que registra los datos.**
-
-_(tu hallazgo, con el número que lo confirma)_
+Un poco de ambos. Los usuarios no suelen dar propina frecuentemente, adicionalmente si se paga con tarjeta el usuario puede dar propina en efectivo y esto no se registra en el sistema.
 
 **Hallazgo 3: la duración tiene una correlación con la tarifa tan alta como la distancia. Si el modelo tiene que estimar la tarifa en el momento en que alguien pide el taxi, ¿puede usar la duración?**
-
-_(tu respuesta)_
+No, la duración del viaje es algo que dependerá mucho del tráfico, es un dato a futuro.
 
 ## Ejercicio 3: explora el dataset de tu proyecto
 
