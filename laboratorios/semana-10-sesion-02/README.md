@@ -111,16 +111,44 @@ Usa tu pipeline y la tabla de resultados de la sesión pasada. Esta vez no hay p
 
 ### Entregable 1: `comparar_proyecto.py`
 **Un script que entrene, con tu pipeline y tu división, el mejor ensamblaje de la sesión pasada y una red neuronal simple (`MLPRegressor` o `MLPClassifier`), y registre para cada uno la métrica de prueba, los segundos de entrenamiento y, para la red, la cantidad de parámetros.**
+Hay que recordar que al DummyRegressor:
+- **wape_train:** 1.2146
+- **wape_test:** 1.2079
+- **brecha:** -0.0067
+- **Segundos:** 1
+
+| **Modelo**                    | **wape_train** | **wape_test** | **segundos** |
+|-------------------------------|----------------|---------------|--------------|
+| DummyRegressor                | 1.2146         | 1.2079        | 1.2          |
+| Naive estacional              | 0.8542         | 0.9001        | 0.0          |
+| Random forest sin regularizar | 0.6869         | 0.8392        | 43.8         |
+| Red neuronal                  | 0.8223         | 0.8434        | 389.3        |
 
 ### Entregable 2: la prueba del LLM
 **Elige 10 filas de tu conjunto de prueba y escribe un prompt con algunas filas de entrenamiento como ejemplos, como el de `prompt_llm.txt`. Pásalo a un LLM y registra su métrica sobre esas 10 filas, junto con la de tus dos modelos sobre las mismas 10. Si tu problema no se puede plantear así (por ejemplo, porque cada predicción necesita una historia larga), explica por qué; eso también es una respuesta.**
 
+id,UNITS_PRED,REAL
+1,1,0
+2,3,1
+3,1,4
+4,2,1
+5,1,1
+6,0,0
+7,0,2
+8,1,0
+9,7,9
+10,0,2
+
 ### Entregable 3: la decisión
 **Una tabla con las tres opciones (métrica, costo, explicabilidad) y un párrafo que diga cuál usarías en tu proyecto y por qué, con los números de tu tabla.**
 
-_(tu tabla)_
+| **Modelo**        | **Metrica**                                                                                                                                                                              | **Costo**                                                                                                                                                     | **Explicabilidad**                                                                                                                                                               |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Random forest** | El modelo es preciso en el entrenamiento y pruba,  pues su wape es el menor. Sin embargo, al tener un wape menor en la prueba,  es posible que este memorizando en lugar de generalizar. | Tiene un costo bajo al interactuar con CPU. Su costo en tiempo tambien es el mas bajo.                                                                        | Alta, es posible modificar los parametros del modelo y entender facilmente el funcionamiento de los arboles.                                                                     |
+| **Red neuronal**  | El modelo es el mas equilibrado, con wape similares tanto para entrenamiento y para prueba.                                                                                              | Puede ser usado con una CPU, pero para sacar toda su potencia es  necesaria una GPU y librerias  especializadas como torch. Su costo en tiempo es mayor.      | Baja, actua como una caja negra de varias  multiplicaciones matematicas.                                                                                                         |
+| **LLM**           | Presenta un wape muy bajo, es decir, es el peor de los 3 modelos. La principal razon se debe a que solo le dimos 10 filas, eso es el menos del 1% (~0.0046%) de los datos.               | Viene el costo de la membresia mensual o en su lugar el costo por token. En cuanto  a tiempo dependemos de la cantidad de los datos, con mas datos tarda mas. | Nula, es una arquitectura masiva de codigo cerrado, no comprendemos su funcionamiento y cada vez da un resultado diferente. Ademas de necesitar ser muy especifico en el prompt. |
 
-_(tu decisión)_
+El modelo que mejor rinde es el Random Forest, pues obtiene los mejores resultados, menor costo y su explicabilidad es sencilla. De igual forma, para evitar problemas de memorización es posible que se necesite mejorar un poco el modelo.
 
 ## Antes de la próxima sesión
 
