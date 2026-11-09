@@ -15,12 +15,10 @@ Nada nuevo que instalar: todo lo de hoy está en scikit-learn. Ten a mano tu `pi
 A partir de la lectura previa:
 
 **Según el artículo, ¿qué es la paradoja de la exactitud (accuracy paradox)? ¿Qué métricas recomienda en su lugar?**
-
-_(tu respuesta)_
+Cuando un modelo muestra una exactitud alta, pero no predice nada; sucede principalmente con datasets desbalanceados. Ocupar métricas para clases pequeñas como recall (sensibilidad), precisión (predicciones positivas por el modelo) y AUC (para datasets desbalanceados).
 
 **El artículo cita la ley de Goodhart: "cuando una medida se convierte en objetivo, deja de ser una buena medida". ¿Qué ejemplo da, y qué tiene que ver con elegir un modelo por una sola métrica?**
-
-_(tu respuesta)_
+Al convertir un indicador único en el objetivo, el modelo encuentra atajos para maximizar la respuesta, lo que provoca sobreajuste.
 
 ## Pregunta de apertura
 
@@ -30,27 +28,26 @@ _(tu respuesta)_
 
 ## Ejercicio 1: tres formas de validar el mismo modelo
 
-Notebook: [`starter/ejercicio1_validacion.ipynb`](./starter/ejercicio1_validacion.ipynb), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv), con la preparación de [`starter/preparacion_taxis.py`](./starter/preparacion_taxis.py). Ya trae una función `evaluar` que corre una validación cruzada con el esquema que le pases y guarda el error de cada pliegue. Los 4 `TODO` son tres esquemas de validación y dos métricas. Córrelo completo una vez antes de tocar nada (**Run All**).
+**Notebook:** [`starter/ejercicio1_validacion.ipynb`](./starter/ejercicio1_validacion.ipynb), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv), con la preparación de [`starter/preparacion_taxis.py`](./starter/preparacion_taxis.py). Ya trae una función `evaluar` que corre una validación cruzada con el esquema que le pases y guarda el error de cada pliegue. Los 4 `TODO` son tres esquemas de validación y dos métricas. Córrelo completo una vez antes de tocar nada (**Run All**).
 
-**Respuesta 1 (TODO 1):** con una sola división, el gradient boosting dio 1.2754 y el bosque 1.3016. Con 5 pliegues al azar, ¿esperas que los cinco errores del gradient boosting sean parecidos entre sí? ¿Cuánto esperas que varíen?
+**Respuesta 1 (TODO 1): Con una sola división, el gradient boosting dio 1.2754 y el bosque 1.3016. Con 5 pliegues al azar, ¿esperas que los cinco errores del gradient boosting sean parecidos entre sí? ¿Cuánto esperas que varíen?**
+Los errores si serán parecidos, no habrá mucha variación.
 
-_(tu respuesta)_
+**Respuesta 2 (TODO 2): En la validación temporal, cada pliegue entrena con los viajes anteriores y valida con los siguientes. ¿Esperas un error mayor o menor que con pliegues al azar? ¿Por qué?**
+Se espera un error mayot, los primeros pliegues tendrán pocos datos históricos para predecir.
 
-**Respuesta 2 (TODO 2):** en la validación temporal, cada pliegue entrena con los viajes anteriores y valida con los siguientes. ¿Esperas un error mayor o menor que con pliegues al azar? ¿Por qué?
+**Respuesta 3 (TODO 3): En la validación por zona, ninguna zona de origen aparece a la vez en entrenamiento y en validación. ¿Qué pliegue crees que va a tener el peor error?**
+El mayor mae será con la zona menos frecuente y el menor mae será con la zona más repetida. Esto porque el modelo no puede aprender a generalizar de pocos datos.
 
-_(tu respuesta)_
-
-**Respuesta 3 (TODO 3):** en la validación por zona, ninguna zona de origen aparece a la vez en entrenamiento y en validación. ¿Qué pliegue crees que va a tener el peor error?
-
-_(tu respuesta)_
-
-**Respuesta 4 (TODO 4):** la app muestra una tarifa estimada antes del viaje, y el pasajero reclama si la real sale más de 20% por encima. ¿Qué métrica dice mejor cuántos reclamos va a haber: el MAE, el RMSE, o el porcentaje de viajes subestimados en más de 20%?
-
-_(tu respuesta)_
+**Respuesta 4 (TODO 4): La app muestra una tarifa estimada antes del viaje, y el pasajero reclama si la real sale más de 20% por encima. ¿Qué métrica dice mejor cuántos reclamos va a haber: el MAE, el RMSE, o el porcentaje de viajes subestimados en más de 20%?**
+El porcentaje de viajes subestimados en más de 20%, esto porque MAE y RMSE son métricas que no reflejan la regla del negocio.
 
 **Lo que confirmó la tabla, esquema por esquema:**
-
-_(anota el promedio, la desviación y el peor pliegue de cada esquema)_
+                  validacion  mae_promedio  desviacion                       pliegues
+aleatorio, gradient boosting        1.2288      0.0361 [1.28, 1.24, 1.16, 1.24, 1.23]
+           aleatorio, bosque        1.2880      0.0291  [1.3, 1.27, 1.25, 1.34, 1.28]
+ temporal, gradient boosting        1.3099      0.0693  [1.4, 1.21, 1.38, 1.27, 1.29]
+ por zona, gradient boosting        2.2996      2.0648 [1.27, 1.31, 1.29, 1.19, 6.43]
 
 ## Durante los ConcepTests
 
@@ -76,23 +73,26 @@ _(tu respuesta)_
 
 ## Ejercicio 2: el 95% que no detecta nada
 
-Solo o en pareja. Notebook: [`starter/ejercicio2_fraude_y_umbral.ipynb`](./starter/ejercicio2_fraude_y_umbral.ipynb), sobre [`starter/pagos_taxi.csv`](./starter/pagos_taxi.csv): 6000 pagos de la app de taxis, de los que unos 300 resultaron fraudulentos. Mismo esqueleto del Ejercicio 1, con un problema de clasificación. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación. Complétalos hasta que todas digan `OK`.
+**Solo o en pareja. Notebook:** [`starter/ejercicio2_fraude_y_umbral.ipynb`](./starter/ejercicio2_fraude_y_umbral.ipynb), sobre [`starter/pagos_taxi.csv`](./starter/pagos_taxi.csv): 6000 pagos de la app de taxis, de los que unos 300 resultaron fraudulentos. Mismo esqueleto del Ejercicio 1, con un problema de clasificación. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación. Complétalos hasta que todas digan `OK`.
 
-**Respuesta 1:** ¿qué accuracy tiene la línea base que nunca predice fraude? ¿Y qué recall?
+**Respuesta 1: ¿Qué accuracy tiene la línea base que nunca predice fraude? ¿Y qué recall?**
+- **accuracy:** 0.9508
+- **recall:** 0.00
 
-_(tu respuesta)_
+**Respuesta 2: ¿Cuánto mejora la accuracy del gradient boosting sobre la línea base, y cuánto mejora el recall? ¿Cuál de los dos números describe mejor lo que gana la empresa?**
+- **accuracy:** 0.9712, mejora del 2.04%
+- **recall:** 0.4610, mejora del 46.1%
+El que mejor describe es el recall, esto porque el accuracy de la linea base es muy alto si lo vemos junto a su recall, significa un dataset desbalanceado.
 
-**Respuesta 2:** ¿cuánto mejora la accuracy del gradient boosting sobre la línea base, y cuánto mejora el recall? ¿Cuál de los dos números describe mejor lo que gana la empresa?
+**Respuesta 3: Con el umbral 0.5, ¿cuántos fraudes deja pasar el gradient boosting? ¿Qué umbral eligió el paso 5, y cuántos fraudes y falsas alarmas tiene con ese umbral?**
+- **Fraudes no detectados:** 159
+- **Falsas alarmas:** 14
+- **Fraudes detectados:** 136
+- **Transacciones correctas:** 5691
+- **Umbral:** 0.1
 
-_(tu respuesta)_
-
-**Respuesta 3:** con el umbral 0.5, ¿cuántos fraudes deja pasar el gradient boosting? ¿Qué umbral eligió el paso 5, y cuántos fraudes y falsas alarmas tiene con ese umbral?
-
-_(tu respuesta)_
-
-**Si terminas antes:** si la revisión manual de una falsa alarma costara 20 dólares en vez de 3, ¿el umbral elegido sube o baja? Cambia la constante y comprueba.
-
-_(tu respuesta)_
+**Si terminas antes: Si la revisión manual de una falsa alarma costara 20 dólares en vez de 3, ¿el umbral elegido sube o baja? Cambia la constante y comprueba.**
+Al no tener datos completos de 20$, el modelo aumenta el umbral y se equivocará más al clasificar transacciones como fraudulentas.
 
 ## Ejercicio 3: la validación y la métrica de tu proyecto
 
