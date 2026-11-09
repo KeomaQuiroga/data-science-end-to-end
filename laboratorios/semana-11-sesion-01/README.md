@@ -29,38 +29,42 @@ Los laboratorios de hoy son notebooks, como los de la Semana 10, y la preparaci�
 A partir de la lectura previa:
 
 **Según el artículo, ¿qué tres cosas hay que versionar en un proyecto de machine learning, y con qué herramienta versiona el autor cada una?**
-
-_(tu respuesta)_
+- **Código:** Motor principal del sisterma, la herramienta principal es Git.
+- **Data:** Con lo que entrena el modelo, se ocupa DVC.
+- **Modelo ML:** Herramienta para la predicción, se hace uso de MLflow.
 
 **¿Por qué no alcanza con Git para versionar los datos?**
-
-_(tu respuesta)_
+El principal problema se debe al tamaño de los datos, el tamaño máximo para alojar en repositorios. Por ejemplo en Guthub permite un tamaño máximo de 100MB o 25 MB si se sube directamente. Hay dataset que pasan ese tamaño por megas o incluso gigas.
 
 ## Pregunta de apertura
 
-Dos compañeros reportan errores distintos para "el mismo" gradient boosting sobre los mismos datos de taxis. ¿Qué tendrías que saber de cada corrida para descubrir por qué no coinciden?
-
-_(tu respuesta)_
+**Dos compañeros reportan errores distintos para "el mismo" gradient boosting sobre los mismos datos de taxis. ¿Qué tendrías que saber de cada corrida para descubrir por qué no coinciden?**
+- Probar con el mismo `random_state` para la división de datos y la configuración del modelo.
+- Ver el pipeline para la división y procesamiento de datos.
 
 ## Ejercicio 1: registrar cada corrida con MLflow
 
-Notebook: [`starter/ejercicio1_registrar_corridas.ipynb`](./starter/ejercicio1_registrar_corridas.ipynb), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv), con la preparación de [`starter/preparacion_taxis.py`](./starter/preparacion_taxis.py). Entrena el bosque y el gradient boosting de la Semana 10, y después la corrida de un compañero. Los 4 `TODO` son el registro. Córrelo completo una vez antes de tocar nada (**Run All**).
+**Notebook:** [`starter/ejercicio1_registrar_corridas.ipynb`](./starter/ejercicio1_registrar_corridas.ipynb), sobre [`starter/viajes_features.csv`](./starter/viajes_features.csv), con la preparación de [`starter/preparacion_taxis.py`](./starter/preparacion_taxis.py). Entrena el bosque y el gradient boosting de la Semana 10, y después la corrida de un compañero. Los 4 `TODO` son el registro. Córrelo completo una vez antes de tocar nada (**Run All**).
 
-**Respuesta 1 (antes de los TODO):** sin resolver, el notebook entrena los tres modelos e imprime sus errores. ¿Cuál de los dos gradient boosting tiene razón? ¿Qué parte de la salida te permite saberlo, y qué parte no?
+**Respuesta 1 (antes de los TODO): Sin resolver, el notebook entrena los tres modelos e imprime sus errores. ¿Cuál de los dos gradient boosting tiene razón? ¿Qué parte de la salida te permite saberlo, y qué parte no?**
+Ambos tienen la razón, sus mediciones son muy parecidas. Me permite saber el paso 4 y 5, lo que no me permite es el `params.huella_datos` y `params.n_estimators`.
+- **bosque aleatorio:**     division 42   entrenamiento  0.4739   prueba  1.3016
+- **gradient modelo:**     division 42   entrenamiento  1.0705   prueba  1.2754
+- **gradient comapañero:**  gradient boosting   division  7   entrenamiento  1.0793   prueba  1.1867
 
-_(tu respuesta)_
+**Respuesta 2 (TODO 2 y 3): De todo lo que se puede registrar de una corrida, ¿qué crees que explica la diferencia entre los dos gradient boosting? ¿Qué parámetro esperas ver distinto en la tabla del paso 5?**
+El mae_prueba. El parametro a ver distinto es la semilla y el error de cada modelo.
 
-**Respuesta 2 (TODO 2 y 3):** de todo lo que se puede registrar de una corrida, ¿qué crees que explica la diferencia entre los dos gradient boosting? ¿Qué parámetro esperas ver distinto en la tabla del paso 5?
-
-_(tu respuesta)_
-
-**Respuesta 3 (TODO 4):** el registro ya tiene los parámetros y las métricas. ¿Para qué guardar además el modelo entrenado?
-
-_(tu respuesta)_
+**Respuesta 3 (TODO 4): El registro ya tiene los parámetros y las métricas. ¿Para qué guardar además el modelo entrenado?**
+Los parámetros nos muestra la configuración del modelo, pero no el modelo en sí. Guardar el modelo nos permite reproduccibilidad en el despliegue.
 
 **Lo que mostró la tabla del paso 5:**
 
-_(anota el error en prueba, la semilla de la división y la huella de los datos de cada corrida)_
+| **id**                           | **tags.mlflow.runName** | **params.semilla_division** | **params.huella_datos** | **params.n_estimators** | **metrics.mae_prueba** | **metrics.segundos** |
+|----------------------------------|-------------------------|-----------------------------|-------------------------|-------------------------|------------------------|----------------------|
+| e0e27cdb86c9499c8c5ca565c690d361 | gradient boosting       | 7                           | 4800204d50c0            | 100                     | 1.186727               | 0.256840             |
+| fcf434398aae43f3b36bf923fdfd8710 | gradient boosting       | 42                          | 4800204d50c0            | 100                     | 1.275352               | 0.271730             |
+| 4e668bd932d14eb7bb7e894eab270a38 | bosque aleatorio        | 42                          | 4800204d50c0            | 200                     | 1.301589               | 1.590768             |
 
 ## Durante el ConcepTest
 
@@ -78,23 +82,19 @@ _(tu respuesta)_
 
 ## Ejercicio 2: comparar con evidencia y elegir
 
-Solo o en pareja. Notebook: [`starter/ejercicio2_comparar_y_elegir.ipynb`](./starter/ejercicio2_comparar_y_elegir.ipynb), sobre el mismo `viajes_features.csv`. Mismo esqueleto del Ejercicio 1, con los cinco modelos de la Semana 10 en un experimento propio. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación. Complétalos hasta que todas digan `OK`.
+**Solo o en pareja. Notebook:** [`starter/ejercicio2_comparar_y_elegir.ipynb`](./starter/ejercicio2_comparar_y_elegir.ipynb), sobre el mismo `viajes_features.csv`. Mismo esqueleto del Ejercicio 1, con los cinco modelos de la Semana 10 en un experimento propio. Los pasos 1 a 3 tienen `TODO`; los pasos 4 y 5 solo tienen la comprobación. Complétalos hasta que todas digan `OK`.
 
-**Respuesta 1:** ¿qué modelo quedó primero en el registro, y por cuánto le gana al segundo?
+**Respuesta 1: ¿Qué modelo quedó primero en el registro, y por cuánto le gana al segundo?**
+Fue red neuronal con un wapo de 1.1695; el segundo mejor fue gradient boost con un wape de 1.2754. Le gana por 0.1059 o un 8.3%.
 
-_(tu respuesta)_
+**Respuesta 2: El paso 5 carga el modelo ganador desde el registro y vuelve a calcular su error. ¿Qué te garantiza que coincida con el número registrado? ¿Qué no te garantiza sobre ese modelo?**
+Garantiza que al ocupar el mismo pipeline y con los mismos datos, la predicción sea la misma. No garantiza que el modelo generalice bien antre nuevos datos ni que sea el mejor entre los candidatos.
 
-**Respuesta 2:** el paso 5 carga el modelo ganador desde el registro y vuelve a calcular su error. ¿Qué te garantiza que coincida con el número registrado? ¿Qué no te garantiza sobre ese modelo?
+**Respuesta 3: Si mañana alguien cambia una fila de `viajes_features.csv` y vuelve a entrenar, ¿cómo lo notarías mirando solo el registro?**
+Se revisa el parámetro `huella_datos`, cuando se modifica su valor cambia en MLflow.
 
-_(tu respuesta)_
-
-**Respuesta 3:** si mañana alguien cambia una fila de `viajes_features.csv` y vuelve a entrenar, ¿cómo lo notarías mirando solo el registro?
-
-_(tu respuesta)_
-
-**Si terminas antes:** abre la interfaz de MLflow (pestaña **Ports**, puerto 5050), entra al experimento `tarifa-taxis-comparacion`, selecciona las cinco corridas y compáralas lado a lado con **Compare**. Además del error, ¿qué te dice el registro de la red neuronal que no te diría una tabla escrita a mano?
-
-_(tu respuesta)_
+**Si terminas antes: Abre la interfaz de MLflow (pestaña `Ports`, puerto 5050), entra al experimento `tarifa-taxis-comparacion`, selecciona las cinco corridas y compáralas lado a lado con `Compare`. Además del error, ¿qué te dice el registro de la red neuronal que no te diría una tabla escrita a mano?**
+Nos muestra la configuración de e hiperparámetros de los modelos, el costo computacional en segundos, la huella de los datos y una extensión sobre el MAE.
 
 ## Ejercicio 3: el registro de tu proyecto
 
