@@ -109,20 +109,30 @@ Escribe qué error es más caro en tu proyecto (sobreestimar o subestimar, un fa
 ### Entregable 3: respuestas
 
 **¿Qué esquema de validación corresponde a tu proyecto, y por qué?**
-
-_(tu respuesta)_
+Temporal, queremos saber el futuro en base a días pasados. Un esquema aleatorio comete trampas al entrenar con datos a futuro.
 
 **¿Cambió la conclusión entre el esquema al azar y el tuyo? Muestra los números.**
+Compararemos con el wape promedio de cada modelo y esquema. 
+| **Modelo**       | **Al azar** | **Temporal** |
+|------------------|-------------|--------------|
+| Naive estacional | 0.8542      | 0.8483       |
+| Random forest    | 0.8411      | 0.8414       |
+| Red neuronal     | 0.8333      | 0.9863       |
 
-_(tu respuesta)_
+Y la desviación estándar promedio.
+| **Modelo**       | **Al azar** | **Temporal** |
+|------------------|-------------|--------------|
+| Naive estacional | 0.0006      | 0.0367       |
+| Random forest    | 0.0013      | 0.0322       |
+| Red neuronal     | 0.0087      | 0.1053       |
+
+Vemos que efectivamente a los modelos les va mejor frente a un esquema temporal, pero la diferencia se ve únicamente con la red neuronal. De igual forma, de acuerdo al wapa la red neuronal es el mejor modelo que se tiene.
 
 **¿La diferencia entre tu modelo final y el segundo es mayor que la variación entre pliegues? ¿Sigues eligiendo el mismo?**
-
-_(tu respuesta)_
+Ahora el mejor modelo es la red neuronal, sin embargo, random forest gana con una desviación estándar más pequeña. Esto nos dice que los valores de RandomForest permanecen más pegados y el wape de la red neuronal es más errático. Se decide ocupar la red neuronal con más kfold (4 o 5) y en un entorno con GPU, caso contrario se escoge random forest por su rápidez.
 
 **¿Qué métrica del negocio elegiste, y qué dice que no decía la anterior?**
-
-_(tu respuesta)_
+El costo relativo asimétrico, dentro del pronóstico sale más caro subestimar que sobreestimar, si no hay producto no hay vento. Suponemos que subestimar cuesta 5 veces más que sobreestimar. El wape trata a los errores por igual, la nueva métrica no. Según wape la red neuronal es mejor, pero según el costo relativo el mejor modelo es random forest.
 
 ## Antes de la próxima sesión
 

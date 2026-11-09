@@ -118,12 +118,12 @@ La tabla de corridas de tu experimento, exportada con `mlflow.search_runs(...).t
 ### Entregable 3: la decisión
 
 **¿Qué modelo elegiste como final? Escribe su `run_id` y los números del registro que sostienen la decisión.**
-
-_(tu respuesta)_
+Random forest sin regularizar, es el que presenta el menor WAPE. Tiene el menor wape 0.8392 y su tiempo de 45 segundos es bueno.
 
 **Si otra persona clona tu repositorio, ¿qué necesita para obtener exactamente el mismo número? ¿Qué de eso quedó registrado en MLflow y qué no?**
-
-_(tu respuesta)_
+- Necesita los códigos para obtener el csv, `features_proyecto.py` y `pipeline_proyecto.py`.
+- Tener el mismo dataset original `obt_sales.csv.gz` para que los códigos realicen su proceso.
+- Las librerías de Python, se pueden resolver las dependencias con el uso de contenedores.
 
 ## Antes de la próxima sesión
 
