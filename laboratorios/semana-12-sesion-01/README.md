@@ -132,7 +132,7 @@ pytest psets/proyecto -v
 El archivo [`.github/workflows/pruebas.yml`](../../.github/workflows/pruebas.yml) le pide a GitHub que, en cada push, cree una máquina limpia, instale `requirements.txt` y corra `pytest psets/proyecto`. En tu fork viene apagado: en la página de tu fork, pestaña **Actions**, presiona "I understand my workflows, go ahead and enable them". Haz push de tus pruebas y espera la marca verde junto a tu commit.
 
 **Pega el enlace a la ejecución de GitHub Actions donde pasan tus pruebas:**
-
+https://github.com/KeomaQuiroga/data-science-end-to-end/actions/runs/42764277047
 
 **¿Qué patrón elegiste para tu proyecto, y qué número de latencia lo decide?**
 Por lotes una vez ppor semana, la predicción alimenta al pedido semanal. Un servicio en línea da respuestas en menos de un segundo, la decisión no cambiaría, pero obligaría a tener el sistema encendido todo el día junto con el almacen de ventas.
