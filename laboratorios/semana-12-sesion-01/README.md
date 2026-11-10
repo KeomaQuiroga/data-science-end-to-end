@@ -138,6 +138,35 @@ https://github.com/KeomaQuiroga/data-science-end-to-end/actions/runs/42764277047
 Por lotes una vez ppor semana, la predicción alimenta al pedido semanal. Un servicio en línea da respuestas en menos de un segundo, la decisión no cambiaría, pero obligaría a tener el sistema encendido todo el día junto con el almacen de ventas.
 
 **Rompe a propósito una de tus pruebas (cambia un valor esperado), haz push y mira qué pasa en GitHub. Después arréglala. ¿Qué te dijo GitHub, y dónde lo viste?**
+Se cambió el valor esperado de *2016-05-04* a *2016-05-05* y se aplicaron los cambios a GitHub. Ahora en `Actions` aparece como fallada la prueba y en el repositorio aparece una equis roja indicando que fallo. Si vamos a detalles vemos que si detecta cual fue el error.
+
+ =========================== short test summary info ============================
+FAILED psets/proyecto/modelado/test_pipeline_proyecto.py::test_la_division_no_mezcla_el_futuro - AssertionError: assert '2016-05-04' == '2016-05-05'
+  
+  - 2016-05-05
+  ?          ^
+  + 2016-05-04
+  ?          ^
+========================= 1 failed, 4 passed in 1.34s ==========================
+Error: Process completed with exit code 1.
+
+
+Cuando se mandó la corerección tanto en el `Action` como en la pestaña principal del repositorio ya marca que las pruebas se realizaron con éxito.
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.18, pytest-8.3.3, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.11.18/x64/bin/python
+cachedir: .pytest_cache
+rootdir: /home/runner/work/data-science-end-to-end/data-science-end-to-end
+plugins: anyio-4.6.2.post1, platformdirs-4.14.5
+collecting ... collected 5 items
+
+psets/proyecto/modelado/test_pipeline_proyecto.py::test_el_objetivo_no_entra_al_modelo PASSED [ 20%]
+psets/proyecto/modelado/test_pipeline_proyecto.py::test_la_division_no_mezcla_el_futuro PASSED [ 40%]
+psets/proyecto/modelado/test_pipeline_proyecto.py::test_la_preparacion_aprende_solo_de_entrenamiento PASSED [ 60%]
+psets/proyecto/modelado/test_pipeline_proyecto.py::test_acepta_una_categoria_que_no_vio_al_entrenar PASSED [ 80%]
+psets/proyecto/modelado/test_pipeline_proyecto.py::test_el_naive_predice_lo_vendido_hace_7_dias PASSED [100%]
+
+============================== 5 passed in 1.39s ===============================
 
 
 ## Antes de la próxima sesión
