@@ -48,25 +48,31 @@ python predecir_lote.py
 pytest -v
 ```
 
-**Respuesta 1 (antes de los TODO):** sin resolver, `predecir_lote.py` escribe una tabla con una sola columna, y `pytest` dice `1 failed, 2 passed`. ¿Cómo pueden pasar dos pruebas si el script no estima ninguna tarifa?
+**Respuesta 1 (antes de los TODO): Sin resolver, `predecir_lote.py` escribe una tabla con una sola columna, y `pytest` dice `1 failed, 2 passed`. ¿Cómo pueden pasar dos pruebas si el script no estima ninguna tarifa?**
+La tabla de `predecir_lote.py`:
+| **id_viaje** |
+|--------------|
+| 90001        |
+| 90002        |
+| 90003        |
+| 90004        |
+| 90005        |
 
-_(tu respuesta)_
+Las columnas que acierta `test` son columnas que no sueltan un assert, o en otras palabras están incompletas. La prueba que falla es `test_columnas_de_salida` que necesita las columnas definidas en `predecir_lote.py`, y como aún no se completa marca como fallida la prueba.
 
-**Respuesta 2 (TODO 1 y 2):** 4 de los 60 viajes no tienen pasajeros y 2 no tienen método de pago. ¿Esperas que el script falle en esos viajes, que los salte, o que les estime una tarifa? ¿Por qué?
+**Respuesta 2 (TODO 1 y 2): 4 de los 60 viajes no tienen pasajeros y 2 no tienen método de pago. ¿Esperas que el script falle en esos viajes, que los salte, o que les estime una tarifa? ¿Por qué?**
+No va a fallar ya que procesa el Dataframe de una sentada, el encargado de esto es `preparacion_taxis.py`.
 
-_(tu respuesta)_
+**Respuesta 3 (TODO 3): Todas las filas de la tabla llevan la misma `version_modelo`. ¿Para qué guardarla en cada fila?**
+Es la forma en la que podemos guardar la versión del modelo en pandas, una forma de llevar registro.
 
-**Respuesta 3 (TODO 3):** todas las filas de la tabla llevan la misma `version_modelo`. ¿Para qué guardarla en cada fila?
-
-_(tu respuesta)_
-
-**Respuesta 4 (TODO 4 y 5):** antes de escribir las dos pruebas, ¿qué cambio en `predecir_lote.py` haría fallar la del `TODO 4`? ¿Y la del `TODO 5`?
-
-_(tu respuesta)_
+**Respuesta 4 (TODO 4 y 5): Antes de escribir las dos pruebas, ¿qué cambio en `predecir_lote.py` haría fallar la del `TODO 4`? ¿Y la del `TODO 5`?**
+La forma en como se construye el datafrem, pues ambos `TODO` esperan un string especifico.
 
 **Lo que mostró el lote:**
-
-_(anota la versión del modelo, la tarifa más baja, la más alta, y qué tarifa recibieron los viajes sin pasajeros)_
+- **version_modelo:** 8cf725276958
+- **tarifa más alta:** 70.26
+- **tarifa más baja:** 4.67
 
 ## Durante el ConcepTest
 
@@ -84,23 +90,19 @@ _(tu respuesta)_
 
 ## Ejercicio 2: la cola de revisión de fraude
 
-Solo o en pareja. Carpeta: [`starter/ejercicio2/`](./starter/ejercicio2/). Cada madrugada, [`puntuar_pagos.py`](./starter/ejercicio2/puntuar_pagos.py) calcula la probabilidad de fraude de los 300 pagos de ayer ([`pagos_ayer.csv`](./starter/ejercicio2/pagos_ayer.csv)) con el gradient boosting de la Semana 11, y arma la cola de revisión manual con los pagos que alcanzan el umbral de 0.10 que elegiste ese día. Mismo esqueleto del Ejercicio 1: los pasos 1 a 3 tienen `TODO`; el paso 4 (la cola) y el paso 5 (las pruebas de [`test_puntuar_pagos.py`](./starter/ejercicio2/test_puntuar_pagos.py)) solo tienen un comentario que dice qué hacer. Primero `python entrenar_fraude.py`; después resuelve y corre `python comprobar.py` hasta que los cinco pasos digan `OK`.
+**Solo o en pareja. Carpeta:** [`starter/ejercicio2/`](./starter/ejercicio2/). Cada madrugada, [`puntuar_pagos.py`](./starter/ejercicio2/puntuar_pagos.py) calcula la probabilidad de fraude de los 300 pagos de ayer ([`pagos_ayer.csv`](./starter/ejercicio2/pagos_ayer.csv)) con el gradient boosting de la Semana 11, y arma la cola de revisión manual con los pagos que alcanzan el umbral de 0.10 que elegiste ese día. Mismo esqueleto del Ejercicio 1: los pasos 1 a 3 tienen `TODO`; el paso 4 (la cola) y el paso 5 (las pruebas de [`test_puntuar_pagos.py`](./starter/ejercicio2/test_puntuar_pagos.py)) solo tienen un comentario que dice qué hacer. Primero `python entrenar_fraude.py`; después resuelve y corre `python comprobar.py` hasta que los cinco pasos digan `OK`.
 
-**Respuesta 1:** ¿cuántos pagos quedaron en la cola de revisión? ¿Cuántos fraudes esperarías encontrar en los 300 pagos, si la proporción es la de la Semana 11?
+**Respuesta 1: ¿Cuántos pagos quedaron en la cola de revisión? ¿Cuántos fraudes esperarías encontrar en los 300 pagos, si la proporción es la de la Semana 11?**
+Al aplicar un umbral de 0.10 quedan 26 pagos, de ña semana 11 se esperaría encontrar 15 fraudes.
 
-_(tu respuesta)_
+**Respuesta 2: Este modelo corre por lotes, una vez al día. ¿Qué pierde la empresa por no evaluar cada pago en el momento en que ocurre? ¿Qué tendría que pasar con la revisión para que eso importe?**
+Poder detener el fraude apenas suceda, en su lugar se tiene que esperar a cuando el modelo ya haya procesado los datos y el fraude ya sucedió. Para que importe el costo de no evaluar fraudes en tiempo real sea mucho mayor que evaluar el fraude luego.
 
-**Respuesta 2:** este modelo corre por lotes, una vez al día. ¿Qué pierde la empresa por no evaluar cada pago en el momento en que ocurre? ¿Qué tendría que pasar con la revisión para que eso importe?
+**Respuesta 3: La prueba de la cola de revisión arma su propia tabla de cuatro pagos con probabilidades escritas a mano, en vez de usar el modelo. ¿Qué gana la prueba con eso?**
+Al usar datos fijos a mano en lugar del modelo, la prueba comprueba de forma 100% segura que la función de la cola filtra y ordena bien por si sola.
 
-_(tu respuesta)_
-
-**Respuesta 3:** la prueba de la cola de revisión arma su propia tabla de cuatro pagos con probabilidades escritas a mano, en vez de usar el modelo. ¿Qué gana la prueba con eso?
-
-_(tu respuesta)_
-
-**Si terminas antes:** sube `UMBRAL` a 0.50 y vuelve a correr `puntuar_pagos.py`. ¿Cuántos pagos quedan en la cola? ¿Siguen pasando todas las pruebas? ¿Por qué?
-
-_(tu respuesta)_
+**Si terminas antes: Sube `UMBRAL` a 0.50 y vuelve a correr `puntuar_pagos.py`. ¿Cuántos pagos quedan en la cola? ¿Siguen pasando todas las pruebas? ¿Por qué?**
+Ahora solo hay 13 pagos en cola, aún pasa las 4 pruebas. Pasan las pruebas porque la variable `UMBRAL` no es usada en las pruebas, `test_puntuar_pagos` ocupa su propio umbral de 0.10.
 
 ## Ejercicio 3: el despliegue y las pruebas de tu proyecto
 

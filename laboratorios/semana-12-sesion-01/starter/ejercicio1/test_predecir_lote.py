@@ -53,10 +53,15 @@ def test_una_prediccion_por_viaje():
     predicciones = predecir_lote(modelo_de_prueba(), viajes, "abc123")
     # TODO 4: comprueba que hay una fila por viaje, con los mismos id_viaje y
     # en el mismo orden.
+    assert len(predicciones) == len(viajes)      # no se puede perder una prediccion
+    assert list(predicciones["id_viaje"]) == list(viajes["id_viaje"])       # manteniendo el orden
 
 
 def test_viaje_incompleto_tambien_se_estima():
+    viajes = viajes_de_prueba()
     predicciones = predecir_lote(modelo_de_prueba(), viajes_de_prueba(), "abc123")
     # TODO 5: el viaje 12 llega sin pasajeros. Comprueba que ningun viaje se
     # queda sin tarifa estimada, y que todas las filas llevan la version
     # del modelo que se paso.
+    assert predicciones["tarifa_estimada"].notna().all()      # predicciones vacias
+    assert list(predicciones["id_viaje"]) == list(viajes["id_viaje"])       # sin saltarse predicciones
