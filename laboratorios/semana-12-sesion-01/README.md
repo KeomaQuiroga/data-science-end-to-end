@@ -133,15 +133,12 @@ El archivo [`.github/workflows/pruebas.yml`](../../.github/workflows/pruebas.yml
 
 **Pega el enlace a la ejecución de GitHub Actions donde pasan tus pruebas:**
 
-_(tu respuesta)_
 
 **¿Qué patrón elegiste para tu proyecto, y qué número de latencia lo decide?**
-
-_(tu respuesta)_
+Por lotes una vez ppor semana, la predicción alimenta al pedido semanal. Un servicio en línea da respuestas en menos de un segundo, la decisión no cambiaría, pero obligaría a tener el sistema encendido todo el día junto con el almacen de ventas.
 
 **Rompe a propósito una de tus pruebas (cambia un valor esperado), haz push y mira qué pasa en GitHub. Después arréglala. ¿Qué te dijo GitHub, y dónde lo viste?**
 
-_(tu respuesta)_
 
 ## Antes de la próxima sesión
 
