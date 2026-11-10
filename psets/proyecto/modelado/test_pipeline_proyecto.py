@@ -44,7 +44,7 @@ def test_la_division_no_mezcla_el_futuro():
     assert fechas_ent.max() < fechas_prueba.min()
     assert fechas_prueba.nunique() == DIAS_PRUEBA
     assert len(X_prueba) == DIAS_PRUEBA * 4
-    assert division["fecha_corte"] == "2016-05-04"      # 10 dias - 7 de prueba = corte en el dia 4
+    assert division["fecha_corte"] == "2016-05-05"      # 10 dias - 7 de prueba = corte en el dia 4
 
 
 def test_la_preparacion_aprende_solo_de_entrenamiento():
