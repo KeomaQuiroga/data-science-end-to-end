@@ -25,5 +25,5 @@ modelo = Pipeline([
 ])
 modelo.fit(viajes[NUMERICAS + YA_LISTAS + CATEGORICAS], viajes[OBJETIVO])
 
-joblib.dump(modelo, RUTA_MODELO)
+joblib.dump(modelo, RUTA_MODELO)        # serializacion del modelo
 print(f"Modelo entrenado con {len(viajes)} viajes y guardado en {RUTA_MODELO}")

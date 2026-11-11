@@ -24,7 +24,7 @@ RUTA_MODELO = os.environ.get("RUTA_MODELO", "modelo_tarifa.joblib")
 
 # El modelo se carga una sola vez, al arrancar el servicio, y no en cada
 # peticion: leer el archivo tarda mucho mas que predecir.
-modelo = None
+modelo = None       # modelo como variable global
 if os.path.exists(RUTA_MODELO):
     modelo = joblib.load(RUTA_MODELO)
 
@@ -39,6 +39,9 @@ class Viaje(BaseModel):
     # vacios (la preparacion los imputa), con valor por defecto None.
     zona_origen: str
     zona_destino: str
+    distancia_km: float | None = None
+    pasajeros: float | None = None
+    metodo_pago: str | None = None
 
 
 @app.get("/salud")
@@ -51,6 +54,8 @@ def predecir(viaje: Viaje):
     # TODO 2: convierte el viaje en un DataFrame de una fila
     # (viaje.model_dump() lo da como diccionario), agrega las features y
     # estima la tarifa con el modelo.
-    tarifa = 0.0
+    dto = pd.DataFrame([viaje.model_dump()])        # traigo el modelo
+    datos_enriquecidos = agregar_features(dto[CATEGORICAS + NUMERICAS + YA_LISTAS])
+    tarifa = modelo.predict(datos_enriquecidos[CATEGORICAS + NUMERICAS + YA_LISTAS])
 
     return {"tarifa_estimada": round(float(tarifa), 2)}
