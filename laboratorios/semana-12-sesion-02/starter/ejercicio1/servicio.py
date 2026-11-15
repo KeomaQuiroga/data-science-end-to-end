@@ -27,7 +27,6 @@ RUTA_MODELO = os.environ.get("RUTA_MODELO", "modelo_tarifa.joblib")
 modelo = None       # modelo como variable global
 if os.path.exists(RUTA_MODELO):
     modelo = joblib.load(RUTA_MODELO)
-
 app = FastAPI(title="Tarifa estimada de taxis")
 
 
@@ -37,6 +36,7 @@ class Viaje(BaseModel):
     # datetime, para que una fecha mal escrita se rechace) y las zonas son
     # obligatorias; distancia_km, pasajeros y metodo_pago pueden llegar
     # vacios (la preparacion los imputa), con valor por defecto None.
+    fecha_hora_inicio: datetime
     zona_origen: str
     zona_destino: str
     distancia_km: float | None = None
@@ -54,8 +54,7 @@ def predecir(viaje: Viaje):
     # TODO 2: convierte el viaje en un DataFrame de una fila
     # (viaje.model_dump() lo da como diccionario), agrega las features y
     # estima la tarifa con el modelo.
-    dto = pd.DataFrame([viaje.model_dump()])        # traigo el modelo
-    datos_enriquecidos = agregar_features(dto[CATEGORICAS + NUMERICAS + YA_LISTAS])
-    tarifa = modelo.predict(datos_enriquecidos[CATEGORICAS + NUMERICAS + YA_LISTAS])
-
+    dto = pd.DataFrame([viaje.model_dump()])        # traer el modelo
+    dto = agregar_features(dto)
+    tarifa = modelo.predict(dto[NUMERICAS + CATEGORICAS + YA_LISTAS])[0]
     return {"tarifa_estimada": round(float(tarifa), 2)}
