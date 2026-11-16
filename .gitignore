@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 # Python
-=======
 # Python (a partir de la Semana 3)
->>>>>>> 0bca416 (add: labs)
 __pycache__/
 *.pyc
 .venv/
@@ -10,21 +7,15 @@ venv/
 .ipynb_checkpoints/
 
 # Datos y modelos locales (nunca se suben, ver PSets para dónde documentar su origen)
-<<<<<<< HEAD
 data/raw/
 data/processed/
-<<<<<<< HEAD
-=======
 *.csv
 *.parquet
->>>>>>> 0bca416 (add: labs)
-=======
 **/data/raw/*
 **/data/processed/*
 # Las carpetas vacias si se suben, para que la estructura del proyecto exista al clonar.
 !**/data/raw/.gitkeep
 !**/data/processed/.gitkeep
->>>>>>> upstream/master
 *.pkl
 *.joblib
 
@@ -35,11 +26,9 @@ data/processed/
 
 # Logs
 *.log
-<<<<<<< HEAD
 **/**.csv.gz
 **/**.csv
 !resultados_proyecto.csv
-=======
 
 # Terraform (el estado guarda las credenciales en texto plano: nunca se sube)
 .terraform/
@@ -65,4 +54,8 @@ mlartifacts/
 
 # Material reemplazado (no se sube)
 _to_delete/
->>>>>>> f9c474b3a2c2e5c9177d6177a998d779a6788b94
+
+# Registros del servicio y del monitoreo (Semana 13): se regeneran al correr
+predicciones.jsonl
+cobros.csv
+modelo_version.txt
